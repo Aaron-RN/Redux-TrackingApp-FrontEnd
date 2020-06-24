@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
+import userReducer from './user';
 import foodsReducer from './foods';
 import filterReducer from './filter';
 import loaderReducer from './loader';
 
 const rootReducer = combineReducers({
-  movies: foodsReducer,
+  user: userReducer,
+  foods: foodsReducer,
   filter: filterReducer,
   status: loaderReducer,
 });
