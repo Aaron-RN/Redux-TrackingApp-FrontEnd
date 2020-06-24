@@ -11,10 +11,13 @@ import { fetchGenres } from './redux/actions';
 
 const initialState = {
   user: { username: '', email: '', logged_in: false },
-  movies: {
-    page: 1, total_results: 100, total_pages: 500, searchBy: 'Popularity', results: [],
-  },
+  foods: [
+    {
+      name: '', date: '', servings: 0, carbs: 0, fats: 0, proteins: 0, notes: [{ body: '' }],
+    },
+  ],
   status: { isLoading: false, errors: [] },
+  filter: 'All',
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
