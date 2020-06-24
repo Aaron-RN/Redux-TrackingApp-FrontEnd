@@ -40,7 +40,7 @@ const userLoginSuccess = user => ({
   response: user,
 });
 
-const userLogout = user => ({
+const userLogoutSuccess = user => ({
   type: USER_LOGOUT,
   response: user,
 });
@@ -84,10 +84,26 @@ const userLogin = user => dispatch => {
     .then(response => {
       const userLoggedIn = response.data.data;
       dispatch(fetchRequestSuccess(response.data.message));
-      dispatch(userLogin(userLoggedIn));
+      dispatch(userLoginSuccess(userLoggedIn));
     })
     .catch(error => {
       dispatch(fetchRequestFailure(error.response.data.error, 'loginForm'));
+    });
+};
+
+// User Logout
+const userLogout = () => dispatch => {
+  dispatch(fetchRequest());
+  axios.delete(`${URL}/logout`, {
+    withCredentials: true,
+  })
+    .then(response => {
+      const userLogged = { name: '', email: '', logged_in: false };
+      dispatch(fetchRequestSuccess(response.data.message));
+      dispatch(userLogoutSuccess(userLogged));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.data.error, 'logoutForm'));
     });
 };
 
@@ -108,5 +124,5 @@ export {
   CHANGE_FILTER, FETCH_FOODLIST, ADD_FOOD, EDIT_FOOD, REMOVE_FOOD, ADD_NOTE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
-  registerNewUser, userLogin, changeFilter, fetchFoods,
+  registerNewUser, userLogin, userLogout, changeFilter, fetchFoods,
 };
