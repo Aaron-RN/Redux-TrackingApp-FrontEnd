@@ -7,7 +7,6 @@ import './assets/css/index.css';
 import App from './App';
 
 import rootReducer from './redux/reducers/index';
-import { fetchGenres } from './redux/actions';
 
 const initialState = {
   user: { username: '', email: '', logged_in: false },
@@ -21,7 +20,6 @@ const initialState = {
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
-store.dispatch(fetchGenres());
 
 ReactDOM.render(
   <Provider store={store}>
