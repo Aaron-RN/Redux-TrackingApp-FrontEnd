@@ -1,17 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import './assets/css/index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import rootReducer from './redux/reducers/index';
+import { fetchGenres } from './redux/actions';
+
+const initialState = {
+  user: { username: '', email: '', logged_in: false },
+  movies: {
+    page: 1, total_results: 100, total_pages: 500, searchBy: 'Popularity', results: [],
+  },
+  status: { isLoading: false, errors: [] },
+};
+
+const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+store.dispatch(fetchGenres());
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById('root'),
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
