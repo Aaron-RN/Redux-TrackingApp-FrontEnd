@@ -30,14 +30,14 @@ const fetchRequestFailure = (response, form = '') => ({
   form,
 });
 
-const userRegisterSuccess = user => ({
+const userRegisterSuccess = (user, loggedIn) => ({
   type: USER_REGISTER,
-  response: user,
+  response: { ...user, logged_in: loggedIn },
 });
 
-const userLoginSuccess = user => ({
+const userLoginSuccess = (user, loggedIn) => ({
   type: USER_LOGIN,
-  response: user,
+  response: { ...user, logged_in: loggedIn },
 });
 
 const userLogoutSuccess = user => ({
@@ -57,16 +57,12 @@ const changeFilter = genre => ({
 // Register User
 const registerNewUser = user => dispatch => {
   dispatch(fetchRequest());
-  axios.post(`${URL}registrations/create`, {
-    username: user.name,
-    email: user.email,
-    password: user.password,
-    password_confirmation: user.password_confirmation,
-  })
+  axios.post(`${URL}registrations`, { user })
     .then(response => {
-      const newUser = response.data.data;
-      dispatch(fetchRequestSuccess(response.data.message));
-      dispatch(userRegisterSuccess(newUser));
+      const newUser = response.data.user;
+
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(userRegisterSuccess(newUser, true));
     })
     .catch(error => {
       dispatch(fetchRequestFailure(error.response.data.error, 'registrationForm'));
@@ -76,17 +72,18 @@ const registerNewUser = user => dispatch => {
 // User Login
 const userLogin = user => dispatch => {
   dispatch(fetchRequest());
-  axios.post(`${URL}sessions/create`, {
-    username: user.name,
-    email: user.email,
-    password: user.password,
-  })
+  axios.post(`${URL}sessions`, { user })
     .then(response => {
-      const userLoggedIn = response.data.data;
-      dispatch(fetchRequestSuccess(response.data.message));
-      dispatch(userLoginSuccess(userLoggedIn));
+      const retrievedUser = response.data.user;
+      const userLoggedIn = response.data.logged_in;
+
+      console.log(response.data);
+
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
     })
     .catch(error => {
+      console.log(error.response);
       dispatch(fetchRequestFailure(error.response.data.error, 'loginForm'));
     });
 };
@@ -103,7 +100,7 @@ const userLogout = () => dispatch => {
       dispatch(userLogoutSuccess(userLogged));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'logoutForm'));
+      dispatch(fetchRequestFailure(error.response.data.status, 'logoutForm'));
     });
 };
 

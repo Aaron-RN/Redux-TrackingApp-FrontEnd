@@ -5,6 +5,7 @@ const userReducer = (state = { }, action) => {
     case USER_REGISTER:
       return action.response;
     case USER_LOGIN:
+      console.log(action.response);
       return action.response;
     case USER_LOGOUT:
       return action.response;
