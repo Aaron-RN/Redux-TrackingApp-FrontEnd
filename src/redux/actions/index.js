@@ -57,7 +57,7 @@ const changeFilter = genre => ({
 // Register User
 const registerNewUser = user => dispatch => {
   dispatch(fetchRequest());
-  axios.post(`${URL}registrations`, { user })
+  axios.post(`${URL}registrations`, { user }, { withCredentials: true })
     .then(response => {
       const newUser = response.data.user;
 
@@ -72,7 +72,7 @@ const registerNewUser = user => dispatch => {
 // User Login
 const userLogin = user => dispatch => {
   dispatch(fetchRequest());
-  axios.post(`${URL}sessions`, { user })
+  axios.post(`${URL}sessions`, { user }, { withCredentials: true })
     .then(response => {
       const retrievedUser = response.data.user;
       const userLoggedIn = response.data.logged_in;
