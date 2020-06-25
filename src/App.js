@@ -9,13 +9,15 @@ import {
 } from 'react-router-dom';
 import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
-import { userLoggedIn } from './redux/actions/index';
+import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 
-const App = ({ status, user, userLoggedIn }) => {
+const App = ({
+  status, user, userLoggedIn, userLogout,
+}) => {
   useEffect(() => {
     userLoggedIn();
-  }, []);
+  }, [userLoggedIn]);
 
   const nav = (
     <nav>
@@ -52,6 +54,7 @@ const App = ({ status, user, userLoggedIn }) => {
                 <i className="fas fa-film" />
               </Link>
             </div>
+            <button type="button" onClick={() => userLogout()}>Logout</button>
           </div>
         </div>
         <div className="logo" />
@@ -89,6 +92,7 @@ App.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   userLoggedIn: PropTypes.func.isRequired,
+  userLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -99,6 +103,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userLoggedIn: () => {
     dispatch(userLoggedIn());
+  },
+  userLogout: () => {
+    dispatch(userLogout());
   },
 });
 

@@ -42,7 +42,7 @@ const userLoginSuccess = (user, loggedIn) => ({
 
 const userLogoutSuccess = user => ({
   type: USER_LOGOUT,
-  response: user,
+  response: { ...user, logged_in: false },
 });
 
 const fetchFoodListSuccess = foods => ({
@@ -106,10 +106,10 @@ const userLogout = () => dispatch => {
   dispatch(fetchRequest());
   axios.delete(`${URL}logout`, { withCredentials: true })
     .then(response => {
-      const userLogged = { name: '', email: '', logged_in: false };
+      const clearUser = { username: '', email: '', password_digest: '' };
 
-      dispatch(fetchRequestSuccess(response.data.message));
-      dispatch(userLogoutSuccess(userLogged));
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(userLogoutSuccess(clearUser, response.data.logged_out));
     })
     .catch(error => {
       dispatch(fetchRequestFailure(error.response.data.status, 'logoutForm'));
