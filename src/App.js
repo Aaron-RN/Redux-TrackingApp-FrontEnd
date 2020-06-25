@@ -73,7 +73,7 @@ const App = ({
       <Switch>
         <Route exact path="/login" component={loginPage} />
         <Route exact path="/register" component={registrationPage} />
-        <Route exact path="/" component={registrationPage} />
+        <Route exact path="/" component={loginPage} />
       </Switch>
     );
   return (
