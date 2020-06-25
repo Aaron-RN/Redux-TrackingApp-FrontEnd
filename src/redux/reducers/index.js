@@ -8,7 +8,7 @@ import loaderReducer from './loader';
 const rootReducer = combineReducers({
   user: userReducer,
   foods: foodsReducer,
-  foodSelected: selectedFoodReducer,
+  selectedFood: selectedFoodReducer,
   filter: filterReducer,
   status: loaderReducer,
 });

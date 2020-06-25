@@ -161,7 +161,8 @@ const addFood = food => dispatch => {
       dispatch(createFood(newFood));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'bookForm'));
+      console.log(error.response);
+      dispatch(fetchRequestFailure(error.response.data.error, 'foodForm'));
     });
 };
 

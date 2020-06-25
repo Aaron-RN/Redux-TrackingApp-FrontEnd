@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { userLogin } from '../../redux/actions/index';
+import { addFood } from '../../redux/actions/index';
 // import '../assets/css/registrationForm.css';
 
-class LoginForm extends React.Component {
+class FoodForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loginCreds: '',
-      password: '',
+      name: '',
+      date_consumed: '',
+      servings_consumed: 0,
+      carbs: 0,
+      fats: 0,
+      proteins: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,26 +28,29 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(e) {
-    const { userLogin } = this.props;
-    const { loginCreds, password } = this.state;
-    const user = { username: loginCreds, email: loginCreds, password };
+    const { addFood } = this.props;
 
     e.preventDefault();
-    userLogin(user);
+    addFood(this.state);
     this.reset();
   }
 
   reset() {
     this.selectForm.current.scrollIntoView({ behavior: 'smooth' });
     this.setState({
-      loginCreds: '',
-      password: '',
+      name: '',
+      date_consumed: '',
+      servings_consumed: 0,
+      carbs: 0,
+      fats: 0,
+      proteins: 0,
     });
   }
 
   render() {
     const {
-      loginCreds, password,
+      // eslint-disable-next-line camelcase
+      name, date_consumed, servings_consumed, carbs, fats, proteins,
     } = this.state;
     const { status } = this.props;
     const { errors, form } = status;
@@ -52,7 +59,7 @@ class LoginForm extends React.Component {
         {error}
       </div>
     );
-    const showErrors = form === 'loginForm' ? (
+    const showErrors = form === 'foodForm' ? (
       <div className="errors">
         {errors.map(error => errorDiv(error))}
       </div>
@@ -61,26 +68,56 @@ class LoginForm extends React.Component {
     return (
       <div className="bg-header round-bottom box-shadow">
         <div className="center max-width-90 border-top">
-          <div className="formTitle">Sign In</div>
+          <div className="formTitle">Add New food</div>
           {showErrors}
-          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="loginForm">
+          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="foodForm">
             <div>
               <input
-                placeholder="Username or Email"
-                name="loginCreds"
+                placeholder="Name of food"
+                name="name"
                 type="text"
-                value={loginCreds}
+                value={name}
                 onChange={this.handleChange}
               />
               <input
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
+                placeholder="Date Consumed"
+                name="date_consumed"
+                type="date"
+                // eslint-disable-next-line camelcase
+                value={date_consumed}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Number of Servings Consumed"
+                name="servings_consumed"
+                type="number"
+                // eslint-disable-next-line camelcase
+                value={servings_consumed}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Carbs"
+                name="carbs"
+                type="number"
+                value={carbs}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Fats"
+                name="fats"
+                type="number"
+                value={fats}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Proteins"
+                name="proteins"
+                type="number"
+                value={proteins}
                 onChange={this.handleChange}
               />
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Add Food</button>
           </form>
         </div>
       </div>
@@ -88,9 +125,9 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {
+FoodForm.propTypes = {
   status: PropTypes.instanceOf(Object).isRequired,
-  userLogin: PropTypes.func.isRequired,
+  addFood: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -98,9 +135,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userLogin: user => {
-    dispatch(userLogin(user));
+  addFood: food => {
+    dispatch(addFood(food));
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodForm);

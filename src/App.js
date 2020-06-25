@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
+import addFoodPage from './components/functional/addFood';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 
@@ -54,6 +55,18 @@ const App = ({
                 <i className="fas fa-film" />
               </Link>
             </div>
+            <div>
+              <Link to={{
+                pathname: '/addFood',
+                route_state: {
+                  resetPage: true,
+                },
+              }}
+              >
+                <span>Add New Food </span>
+                <i className="fas fa-film" />
+              </Link>
+            </div>
             <button type="button" onClick={() => userLogout()}>Logout</button>
           </div>
         </div>
@@ -71,6 +84,7 @@ const App = ({
     )
     : (
       <Switch>
+        <Route exact path="/addFood" component={addFoodPage} />
         <Route exact path="/login" component={loginPage} />
         <Route exact path="/register" component={registrationPage} />
         <Route exact path="/" component={loginPage} />
