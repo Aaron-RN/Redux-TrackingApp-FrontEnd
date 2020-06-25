@@ -15,6 +15,7 @@ const initialState = {
       name: '', date: '', servings: 0, carbs: 0, fats: 0, proteins: 0, notes: [{ body: '' }],
     },
   ],
+  selectedFood: {},
   status: { isLoading: false, errors: [] },
   filter: 'All',
 };

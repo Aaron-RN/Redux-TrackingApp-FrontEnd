@@ -9,6 +9,7 @@ const USER_REGISTER = 'USER_REGISTER';
 const USER_LOGIN = 'USER_LOGIN';
 const USER_LOGOUT = 'USER_LOGOUT';
 const FETCH_FOODLIST = 'FETCH_FOODLIST';
+const FETCH_FOOD = 'FETCH_FOOD';
 const ADD_FOOD = 'ADD_FOOD';
 const REMOVE_FOOD = 'REMOVE_FOOD';
 const EDIT_FOOD = 'EDIT_FOOD';
@@ -49,6 +50,15 @@ const fetchFoodListSuccess = foods => ({
   type: FETCH_FOODLIST,
   response: foods,
 });
+const fetchFoodSuccess = food => ({
+  type: FETCH_FOOD,
+  response: food,
+});
+const createFood = food => ({
+  type: ADD_FOOD,
+  food,
+});
+
 const changeFilter = genre => ({
   type: CHANGE_FILTER,
   genre,
@@ -117,21 +127,48 @@ const userLogout = () => dispatch => {
 };
 
 // Grab all foods from API Database related to current logged in user
-const fetchFoods = userID => dispatch => {
+const fetchFoods = () => dispatch => {
   dispatch(fetchRequest());
-  axios.get(`${URL}${userID}`)
+  axios.get(`${URL}foods`)
     .then(response => {
-      dispatch(fetchRequestSuccess(response.statusText));
-      dispatch(fetchFoodListSuccess(response.data));
+      dispatch(fetchRequestSuccess('Showing all foods for current User...'));
+      dispatch(fetchFoodListSuccess(response.data.food));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.status_message));
+      console.log(error);
+      dispatch(fetchRequestFailure(error));
+    });
+};
+// Grab one food from API Database
+const fetchFood = foodID => dispatch => {
+  dispatch(fetchRequest());
+  axios.get(`${URL}foods/${foodID}`)
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodSuccess(response.data.selected_food));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.data.error));
+    });
+};
+// Food requests
+const addFood = food => dispatch => {
+  dispatch(fetchRequest());
+  axios.post(`${URL}foods`, { food })
+    .then(response => {
+      const newFood = response.data.selected_food;
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(createFood(newFood));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.data.error, 'bookForm'));
     });
 };
 
 export {
-  CHANGE_FILTER, FETCH_FOODLIST, ADD_FOOD, EDIT_FOOD, REMOVE_FOOD, ADD_NOTE,
+  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD, ADD_FOOD, EDIT_FOOD, REMOVE_FOOD, ADD_NOTE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
-  registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter, fetchFoods,
+  registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
+  fetchFoods, fetchFood, addFood,
 };
