@@ -77,25 +77,37 @@ const userLogin = user => dispatch => {
       const retrievedUser = response.data.user;
       const userLoggedIn = response.data.logged_in;
 
-      console.log(response.data);
-
       dispatch(fetchRequestSuccess(response.data.status));
       dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
     })
     .catch(error => {
-      console.log(error.response);
       dispatch(fetchRequestFailure(error.response.data.error, 'loginForm'));
+    });
+};
+
+// Is User Still Logged In?
+const userLoggedIn = () => dispatch => {
+  dispatch(fetchRequest());
+  axios.get(`${URL}logged_in`, { withCredentials: true })
+    .then(response => {
+      const retrievedUser = response.data.user || {};
+      const userLoggedIn = response.data.logged_in;
+
+      dispatch(fetchRequestSuccess('User still Logged in'));
+      dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.status, 'logoutForm'));
     });
 };
 
 // User Logout
 const userLogout = () => dispatch => {
   dispatch(fetchRequest());
-  axios.delete(`${URL}/logout`, {
-    withCredentials: true,
-  })
+  axios.delete(`${URL}logout`, { withCredentials: true })
     .then(response => {
       const userLogged = { name: '', email: '', logged_in: false };
+
       dispatch(fetchRequestSuccess(response.data.message));
       dispatch(userLogoutSuccess(userLogged));
     })
@@ -121,5 +133,5 @@ export {
   CHANGE_FILTER, FETCH_FOODLIST, ADD_FOOD, EDIT_FOOD, REMOVE_FOOD, ADD_NOTE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
-  registerNewUser, userLogin, userLogout, changeFilter, fetchFoods,
+  registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter, fetchFoods,
 };

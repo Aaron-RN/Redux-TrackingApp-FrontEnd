@@ -27,7 +27,6 @@ class LoginForm extends React.Component {
     const { userLogin } = this.props;
     const { loginCreds, password } = this.state;
     const user = { username: loginCreds, email: loginCreds, password };
-    console.log(user);
 
     e.preventDefault();
     userLogin(user);
@@ -53,7 +52,7 @@ class LoginForm extends React.Component {
         {error}
       </div>
     );
-    const showErrors = form === 'registrationForm' ? (
+    const showErrors = form === 'loginForm' ? (
       <div className="errors">
         {errors.map(error => errorDiv(error))}
       </div>
@@ -62,7 +61,7 @@ class LoginForm extends React.Component {
     return (
       <div className="bg-header round-bottom box-shadow">
         <div className="center max-width-90 border-top">
-          <div className="formTitle">Login</div>
+          <div className="formTitle">Sign In</div>
           {showErrors}
           <form ref={this.selectForm} onSubmit={this.handleSubmit} className="loginForm">
             <div>
