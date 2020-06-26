@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import { fetchFoods } from '../../redux/actions/index';
 
 const FoodList = ({
-  status, food, fetchFoods,
+  status, foods, fetchFoods,
 }) => {
   const useMountEffect = func => useEffect(func, []);
 
   useMountEffect(fetchFoods);
 
   const mealsContainer = React.useRef(null);
-
-  console.log(food);
 
   const { isLoading } = status;
   const renderMain = isLoading
@@ -24,7 +22,7 @@ const FoodList = ({
     )
     : (
       <div ref={mealsContainer} className="food-section">
-        {food.map(meal => (
+        {foods.map(meal => (
           <div key={meal.id + meal.name}>
             <div>{meal.name}</div>
             <div>{meal.date_consumed}</div>
@@ -40,19 +38,15 @@ const FoodList = ({
   return renderMain;
 };
 
-FoodList.defaultProps = {
-  food: [],
-};
-
 FoodList.propTypes = {
   status: PropTypes.instanceOf(Object).isRequired,
-  food: PropTypes.instanceOf(Object),
+  foods: PropTypes.instanceOf(Object).isRequired,
   fetchFoods: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   status: state.status,
-  food: state.food,
+  foods: state.foods,
 });
 
 const mapDispatchToProps = dispatch => ({
