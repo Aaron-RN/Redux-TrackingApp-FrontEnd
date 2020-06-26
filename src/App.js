@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   Link,
+  Redirect,
 } from 'react-router-dom';
 import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
@@ -20,6 +21,19 @@ const App = ({
     userLoggedIn();
   }, [userLoggedIn]);
 
+  useEffect(() => {
+    if (user.logged_in === false) {
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: '/login',
+          }}
+        />
+      );
+    }
+  }, [user.logged_in]);
+
   const nav = (
     <nav>
       <div className="center container">
@@ -32,13 +46,7 @@ const App = ({
         <div>
           <div className="horizontal-list">
             <div>
-              <Link to={{
-                pathname: '/register',
-                route_state: {
-                  resetPage: true,
-                },
-              }}
-              >
+              <Link to={{ pathname: '/register' }}>
                 <span>Register </span>
                 <i className="fas fa-film" />
               </Link>
@@ -46,9 +54,6 @@ const App = ({
             <div>
               <Link to={{
                 pathname: '/login',
-                route_state: {
-                  resetPage: true,
-                },
               }}
               >
                 <span>Login </span>
@@ -58,9 +63,6 @@ const App = ({
             <div>
               <Link to={{
                 pathname: '/addFood',
-                route_state: {
-                  resetPage: true,
-                },
               }}
               >
                 <span>Add New Food </span>

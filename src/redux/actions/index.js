@@ -107,8 +107,6 @@ const userLoggedIn = () => dispatch => {
       dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
     })
     .catch(error => {
-      console.log(error);
-      console.log(error.response);
       const userLoggedIn = error.response.data.logged_in;
       dispatch(userLoginSuccess({}, userLoggedIn));
       dispatch(fetchRequestFailure(error.response.status, 'logoutForm'));
