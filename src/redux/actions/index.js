@@ -157,9 +157,9 @@ const addFood = food => dispatch => {
   dispatch(fetchRequest());
   axios.post(`${URL}foods`, { food }, { withCredentials: true })
     .then(response => {
-      const newFood = response.data.selected_food;
+      const newFoodList = response.data.food;
       dispatch(fetchRequestSuccess(response.data.status));
-      dispatch(createFood(newFood));
+      dispatch(createFood(newFoodList));
     })
     .catch(error => {
       dispatch(fetchRequestFailure(error.response.data.error, 'foodForm'));
