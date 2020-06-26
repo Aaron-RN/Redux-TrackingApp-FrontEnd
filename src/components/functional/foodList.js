@@ -12,6 +12,8 @@ const FoodList = ({
 
   const mealsContainer = React.useRef(null);
 
+  console.log(food);
+
   const { isLoading } = status;
   const renderMain = isLoading
     ? (
