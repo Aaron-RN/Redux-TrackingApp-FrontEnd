@@ -107,6 +107,10 @@ const userLoggedIn = () => dispatch => {
       dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
     })
     .catch(error => {
+      console.log(error);
+      console.log(error.response);
+      const userLoggedIn = error.response.data.logged_in;
+      dispatch(userLoginSuccess({}, userLoggedIn));
       dispatch(fetchRequestFailure(error.response.status, 'logoutForm'));
     });
 };
@@ -129,7 +133,7 @@ const userLogout = () => dispatch => {
 // Grab all foods from API Database related to current logged in user
 const fetchFoods = () => dispatch => {
   dispatch(fetchRequest());
-  axios.get(`${URL}foods`)
+  axios.get(`${URL}foods`, { withCredentials: true })
     .then(response => {
       dispatch(fetchRequestSuccess('Showing all foods for current User...'));
       dispatch(fetchFoodListSuccess(response.data.food));
@@ -142,7 +146,7 @@ const fetchFoods = () => dispatch => {
 // Grab one food from API Database
 const fetchFood = foodID => dispatch => {
   dispatch(fetchRequest());
-  axios.get(`${URL}foods/${foodID}`)
+  axios.get(`${URL}foods/${foodID}`, { withCredentials: true })
     .then(response => {
       dispatch(fetchRequestSuccess(response.data.status));
       dispatch(fetchFoodSuccess(response.data.selected_food));
