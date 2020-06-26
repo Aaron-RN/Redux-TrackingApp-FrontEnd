@@ -6,33 +6,20 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
 } from 'react-router-dom';
 import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
 import addFoodPage from './components/functional/addFood';
+import foodListPage from './components/functional/foodList';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 
 const App = ({
-  status, user, userLoggedIn, userLogout,
+  user, userLoggedIn, userLogout,
 }) => {
   useEffect(() => {
     userLoggedIn();
   }, [userLoggedIn]);
-
-  useEffect(() => {
-    if (user.logged_in === false) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: '/login',
-          }}
-        />
-      );
-    }
-  }, [user.logged_in]);
 
   const nav = (
     <nav>
@@ -48,25 +35,21 @@ const App = ({
             <div>
               <Link to={{ pathname: '/register' }}>
                 <span>Register </span>
-                <i className="fas fa-film" />
               </Link>
             </div>
             <div>
-              <Link to={{
-                pathname: '/login',
-              }}
-              >
+              <Link to={{ pathname: '/login' }}>
                 <span>Login </span>
-                <i className="fas fa-film" />
               </Link>
             </div>
             <div>
-              <Link to={{
-                pathname: '/addFood',
-              }}
-              >
+              <Link to={{ pathname: '/addFood' }}>
                 <span>Add New Food </span>
-                <i className="fas fa-film" />
+              </Link>
+            </div>
+            <div>
+              <Link to={{ pathname: '/foods' }}>
+                <span>Food List</span>
               </Link>
             </div>
             <button type="button" onClick={() => userLogout()}>Logout</button>
@@ -76,28 +59,18 @@ const App = ({
       </div>
     </nav>
   );
-  const { isLoading } = status;
-  const renderMain = isLoading
-    ? (
-      <div className="text-center">
-        <div className="loader center" />
-        <h1 className="text-white">Loading...</h1>
-      </div>
-    )
-    : (
-      <Switch>
-        <Route exact path="/addFood" component={addFoodPage} />
-        <Route exact path="/login" component={loginPage} />
-        <Route exact path="/register" component={registrationPage} />
-        <Route exact path="/" component={loginPage} />
-      </Switch>
-    );
   return (
     <Router>
       <div className="App">
         {nav}
         <main className="App-body">
-          {renderMain}
+          <Switch>
+            <Route exact path="/foods" component={foodListPage} />
+            <Route exact path="/addFood" component={addFoodPage} />
+            <Route exact path="/login" component={loginPage} />
+            <Route exact path="/register" component={registrationPage} />
+            <Route exact path="/" component={loginPage} />
+          </Switch>
         </main>
       </div>
     </Router>

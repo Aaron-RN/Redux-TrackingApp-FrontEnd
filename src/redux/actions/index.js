@@ -137,7 +137,6 @@ const fetchFoods = () => dispatch => {
       dispatch(fetchFoodListSuccess(response.data.food));
     })
     .catch(error => {
-      console.log(error);
       dispatch(fetchRequestFailure(error));
     });
 };
@@ -163,7 +162,6 @@ const addFood = food => dispatch => {
       dispatch(createFood(newFood));
     })
     .catch(error => {
-      console.log(error.response);
       dispatch(fetchRequestFailure(error.response.data.error, 'foodForm'));
     });
 };

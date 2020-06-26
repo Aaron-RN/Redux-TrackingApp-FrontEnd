@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
       loginCreds, password,
     } = this.state;
     const { status } = this.props;
-    const { errors, form } = status;
+    const { isLoading, errors, form } = status;
     const errorDiv = error => (
       <div key={error}>
         {error}
@@ -58,33 +58,41 @@ class LoginForm extends React.Component {
       </div>
     ) : null;
 
-    return (
-      <div className="bg-header round-bottom box-shadow">
-        <div className="center max-width-90 border-top">
-          <div className="formTitle">Sign In</div>
-          {showErrors}
-          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="loginForm">
-            <div>
-              <input
-                placeholder="Username or Email"
-                name="loginCreds"
-                type="text"
-                value={loginCreds}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit">Login</button>
-          </form>
+    const renderMain = isLoading
+      ? (
+        <div className="text-center">
+          <div className="loader center" />
+          <h1 className="text-white">Loading...</h1>
         </div>
-      </div>
-    );
+      )
+      : (
+        <div className="bg-header round-bottom box-shadow">
+          <div className="center max-width-90 border-top">
+            <div className="formTitle">Sign In</div>
+            {showErrors}
+            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="loginForm">
+              <div>
+                <input
+                  placeholder="Username or Email"
+                  name="loginCreds"
+                  type="text"
+                  value={loginCreds}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <button type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+      );
+    return renderMain;
   }
 }
 

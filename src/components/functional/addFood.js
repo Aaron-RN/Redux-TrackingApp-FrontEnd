@@ -11,10 +11,10 @@ class FoodForm extends React.Component {
     this.state = {
       name: '',
       date_consumed: '',
-      servings_consumed: 0,
-      carbs: 0,
-      fats: 0,
-      proteins: 0,
+      servings_consumed: '',
+      carbs: '',
+      fats: '',
+      proteins: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,10 +40,10 @@ class FoodForm extends React.Component {
     this.setState({
       name: '',
       date_consumed: '',
-      servings_consumed: 0,
-      carbs: 0,
-      fats: 0,
-      proteins: 0,
+      servings_consumed: '',
+      carbs: '',
+      fats: '',
+      proteins: '',
     });
   }
 
@@ -53,7 +53,7 @@ class FoodForm extends React.Component {
       name, date_consumed, servings_consumed, carbs, fats, proteins,
     } = this.state;
     const { status } = this.props;
-    const { errors, form } = status;
+    const { isLoading, errors, form } = status;
     const errorDiv = error => (
       <div key={error}>
         {error}
@@ -65,63 +65,71 @@ class FoodForm extends React.Component {
       </div>
     ) : null;
 
-    return (
-      <div className="bg-header round-bottom box-shadow">
-        <div className="center max-width-90 border-top">
-          <div className="formTitle">Add New food</div>
-          {showErrors}
-          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="foodForm">
-            <div>
-              <input
-                placeholder="Name of food"
-                name="name"
-                type="text"
-                value={name}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Date Consumed"
-                name="date_consumed"
-                type="date"
-                // eslint-disable-next-line camelcase
-                value={date_consumed}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Number of Servings Consumed"
-                name="servings_consumed"
-                type="number"
-                // eslint-disable-next-line camelcase
-                value={servings_consumed}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Carbs"
-                name="carbs"
-                type="number"
-                value={carbs}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Fats"
-                name="fats"
-                type="number"
-                value={fats}
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Proteins"
-                name="proteins"
-                type="number"
-                value={proteins}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit">Add Food</button>
-          </form>
+    const renderMain = isLoading
+      ? (
+        <div className="text-center">
+          <div className="loader center" />
+          <h1 className="text-white">Loading...</h1>
         </div>
-      </div>
-    );
+      )
+      : (
+        <div className="bg-header round-bottom box-shadow">
+          <div className="center max-width-90 border-top">
+            <div className="formTitle">Add New food</div>
+            {showErrors}
+            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="foodForm">
+              <div>
+                <input
+                  placeholder="Name of food"
+                  name="name"
+                  type="text"
+                  value={name}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Date Consumed"
+                  name="date_consumed"
+                  type="date"
+                  // eslint-disable-next-line camelcase
+                  value={date_consumed}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Number of Servings Consumed"
+                  name="servings_consumed"
+                  type="number"
+                  // eslint-disable-next-line camelcase
+                  value={servings_consumed}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Carbs"
+                  name="carbs"
+                  type="number"
+                  value={carbs}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Fats"
+                  name="fats"
+                  type="number"
+                  value={fats}
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Proteins"
+                  name="proteins"
+                  type="number"
+                  value={proteins}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <button type="submit">Add Food</button>
+            </form>
+          </div>
+        </div>
+      );
+    return renderMain;
   }
 }
 
