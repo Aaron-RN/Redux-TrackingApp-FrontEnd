@@ -154,7 +154,7 @@ const fetchFood = foodID => dispatch => {
 // Food requests
 const addFood = food => dispatch => {
   dispatch(fetchRequest());
-  axios.post(`${URL}foods`, { food })
+  axios.post(`${URL}foods`, { food }, { withCredentials: true })
     .then(response => {
       const newFood = response.data.selected_food;
       dispatch(fetchRequestSuccess(response.data.status));
