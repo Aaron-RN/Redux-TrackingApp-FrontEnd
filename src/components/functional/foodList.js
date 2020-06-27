@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Food from '../presentational/food';
 import { fetchFoods, removeFood } from '../../redux/actions/index';
 
 const FoodList = ({
@@ -21,18 +22,9 @@ const FoodList = ({
       </div>
     )
     : (
-      <div ref={mealsContainer} className="food-section">
+      <div ref={mealsContainer} className="foods-section">
         {foods.map(meal => (
-          <div key={meal.id + meal.name}>
-            <div>{meal.name}</div>
-            <div>{meal.date_consumed}</div>
-            <div>{meal.servings_consumed}</div>
-            <div>{meal.carbs}</div>
-            <div>{meal.fats}</div>
-            <div>{meal.proteins}</div>
-            <div>Total Calories: </div>
-            <button type="button" onClick={() => removeFood(meal)}>Remove Food</button>
-          </div>
+          <Food key={meal.id + meal.name} meal={meal} removeFood={removeFood} />
         ))}
       </div>
     );
