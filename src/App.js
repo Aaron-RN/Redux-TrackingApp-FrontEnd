@@ -11,7 +11,7 @@ import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
 import addFoodPage from './components/functional/addFood';
 import foodListPage from './components/functional/foodList';
-import mealDetailsPage from './components/presentational/mealDetails';
+import mealDetailsPage from './components/functional/mealDetails';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 

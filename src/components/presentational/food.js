@@ -3,16 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // import '../../assets/css/food.css';
 
-const Food = ({ foodsList, meal, removeFood }) => (
+const Food = ({ meal }) => (
   <div>
-    <Link to={{
-      pathname: `/foods/${meal.id}`,
-      route_state: {
-        foodsList,
-        removeFood,
-      },
-    }}
-    >
+    <Link to={{ pathname: `/foods/${meal.id}` }}>
       <div>{meal.name}</div>
       <div>{meal.servings_consumed}</div>
       <div>Total Calories: </div>
@@ -21,7 +14,6 @@ const Food = ({ foodsList, meal, removeFood }) => (
 );
 
 Food.propTypes = {
-  foodsList: PropTypes.instanceOf(Array).isRequired,
   meal: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -32,7 +24,6 @@ Food.propTypes = {
     proteins: PropTypes.number,
     notes: PropTypes.instanceOf(Array),
   }).isRequired,
-  removeFood: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Food;

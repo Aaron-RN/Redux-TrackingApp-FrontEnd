@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { fetchFood, removeFood } from '../../redux/actions/index';
 // import '../../assets/css/food.css';
 
-const MealDetails = ({ match, selectedFood, fetchFood, removeFood }) => {
+const MealDetails = ({
+  match, selectedFood, fetchFood, removeFood,
+}) => {
   useEffect(() => {
     fetchFood(match.params.id);
   }, [fetchFood]);

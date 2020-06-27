@@ -29,18 +29,27 @@ class FoodForm extends React.Component {
 
   handleSubmit(e) {
     const { addFood } = this.props;
-    // const { name, date_consumed, servings_consumed, carbs, fats, proteins } = this.state;
-    // let newCarbs = 0;
-    // if (carbs > 0) newCarbs = carbs;
-    // const food = {
-    //   name,
-    //   date_consumed,
-    //   servings_consumed,
-    //   carbs: newCarbs,
-    // };
+    const {
+      // eslint-disable-next-line camelcase
+      name, date_consumed, servings_consumed, carbs, fats, proteins,
+    } = this.state;
+    let newCarbs = 0;
+    let newFats = 0;
+    let newProteins = 0;
+    if (carbs > 0) newCarbs = carbs;
+    if (fats > 0) newFats = fats;
+    if (proteins > 0) newProteins = proteins;
+    const food = {
+      name,
+      date_consumed,
+      servings_consumed,
+      carbs: newCarbs,
+      fats: newFats,
+      proteins: newProteins,
+    };
 
     e.preventDefault();
-    addFood(this.state);
+    addFood(food);
     this.reset();
   }
 
