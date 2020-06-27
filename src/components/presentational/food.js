@@ -1,21 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 // import '../../assets/css/food.css';
 
-const Food = ({ meal, removeFood }) => (
+const Food = ({ foodsList, meal, removeFood }) => (
   <div>
-    <div>{meal.name}</div>
-    <div>{meal.date_consumed}</div>
-    <div>{meal.servings_consumed}</div>
-    <div>{meal.carbs}</div>
-    <div>{meal.fats}</div>
-    <div>{meal.proteins}</div>
-    <div>Total Calories: </div>
-    <button type="button" onClick={() => removeFood(meal)}>Remove Food</button>
+    <Link to={{
+      pathname: `/foods/${meal.id}`,
+      route_state: {
+        foodsList,
+        removeFood,
+      },
+    }}
+    >
+      <div>{meal.name}</div>
+      <div>{meal.servings_consumed}</div>
+      <div>Total Calories: </div>
+    </Link>
   </div>
 );
 
 Food.propTypes = {
+  foodsList: PropTypes.instanceOf(Array).isRequired,
   meal: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -26,7 +32,7 @@ Food.propTypes = {
     proteins: PropTypes.number,
     notes: PropTypes.instanceOf(Array),
   }).isRequired,
-  removeFood: PropTypes.func.isRequired,
+  removeFood: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Food;

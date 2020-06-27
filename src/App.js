@@ -11,6 +11,7 @@ import registrationPage from './components/functional/registrationPage';
 import loginPage from './components/functional/loginPage';
 import addFoodPage from './components/functional/addFood';
 import foodListPage from './components/functional/foodList';
+import mealDetailsPage from './components/presentational/mealDetails';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 
@@ -65,6 +66,7 @@ const App = ({
         {nav}
         <main className="App-body">
           <Switch>
+            <Route exact path="/foods/:id" component={mealDetailsPage} />
             <Route exact path="/foods" component={foodListPage} />
             <Route exact path="/addFood" component={addFoodPage} />
             <Route exact path="/login" component={loginPage} />
