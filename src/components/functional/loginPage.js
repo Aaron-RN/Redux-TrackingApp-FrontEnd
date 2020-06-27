@@ -77,6 +77,7 @@ class LoginForm extends React.Component {
                   name="loginCreds"
                   type="text"
                   value={loginCreds}
+                  minLength="3"
                   onChange={this.handleChange}
                 />
                 <input
@@ -84,6 +85,7 @@ class LoginForm extends React.Component {
                   name="password"
                   type="password"
                   value={password}
+                  minLength="3"
                   onChange={this.handleChange}
                 />
               </div>

@@ -10,9 +10,6 @@ const USER_LOGIN = 'USER_LOGIN';
 const USER_LOGOUT = 'USER_LOGOUT';
 const FETCH_FOODLIST = 'FETCH_FOODLIST';
 const FETCH_FOOD = 'FETCH_FOOD';
-const ADD_FOOD = 'ADD_FOOD';
-const REMOVE_FOOD = 'REMOVE_FOOD';
-const EDIT_FOOD = 'EDIT_FOOD';
 const ADD_NOTE = 'ADD_NOTE';
 const CHANGE_FILTER = 'CHANGE_FILTER';
 
@@ -53,10 +50,6 @@ const fetchFoodListSuccess = foods => ({
 const fetchFoodSuccess = food => ({
   type: FETCH_FOOD,
   response: food,
-});
-const createFood = food => ({
-  type: ADD_FOOD,
-  food,
 });
 
 const changeFilter = genre => ({
@@ -159,17 +152,29 @@ const addFood = food => dispatch => {
     .then(response => {
       const newFoodList = response.data.food;
       dispatch(fetchRequestSuccess(response.data.status));
-      dispatch(createFood(newFoodList));
+      dispatch(fetchFoodListSuccess(newFoodList));
     })
     .catch(error => {
       dispatch(fetchRequestFailure(error.response.data.error, 'foodForm'));
     });
 };
+const removeFood = food => dispatch => {
+  dispatch(fetchRequest());
+  axios.delete(`${URL}foods/${food.id}`, { withCredentials: true })
+    .then(response => {
+      const newFoodList = response.data.food;
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodListSuccess(newFoodList));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.data.error));
+    });
+};
 
 export {
-  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD, ADD_FOOD, EDIT_FOOD, REMOVE_FOOD, ADD_NOTE,
+  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD, ADD_NOTE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
   registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
-  fetchFoods, fetchFood, addFood,
+  fetchFoods, fetchFood, addFood, removeFood,
 };

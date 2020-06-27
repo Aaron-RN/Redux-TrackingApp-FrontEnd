@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchFoods } from '../../redux/actions/index';
+import { fetchFoods, removeFood } from '../../redux/actions/index';
 
 const FoodList = ({
-  status, foods, fetchFoods,
+  status, foods, fetchFoods, removeFood,
 }) => {
   const useMountEffect = func => useEffect(func, []);
 
@@ -31,6 +31,7 @@ const FoodList = ({
             <div>{meal.fats}</div>
             <div>{meal.proteins}</div>
             <div>Total Calories: </div>
+            <button type="button" onClick={() => removeFood(meal)}>Remove Food</button>
           </div>
         ))}
       </div>
@@ -52,6 +53,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchFoods: () => {
     dispatch(fetchFoods());
+  },
+  removeFood: food => {
+    dispatch(removeFood(food));
   },
 });
 

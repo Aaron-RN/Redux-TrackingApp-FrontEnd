@@ -29,6 +29,15 @@ class FoodForm extends React.Component {
 
   handleSubmit(e) {
     const { addFood } = this.props;
+    // const { name, date_consumed, servings_consumed, carbs, fats, proteins } = this.state;
+    // let newCarbs = 0;
+    // if (carbs > 0) newCarbs = carbs;
+    // const food = {
+    //   name,
+    //   date_consumed,
+    //   servings_consumed,
+    //   carbs: newCarbs,
+    // };
 
     e.preventDefault();
     addFood(this.state);
@@ -84,6 +93,8 @@ class FoodForm extends React.Component {
                   name="name"
                   type="text"
                   value={name}
+                  minLength="2"
+                  maxLength="60"
                   onChange={this.handleChange}
                 />
                 <input
@@ -100,6 +111,7 @@ class FoodForm extends React.Component {
                   type="number"
                   // eslint-disable-next-line camelcase
                   value={servings_consumed}
+                  min="1"
                   onChange={this.handleChange}
                 />
                 <input
@@ -107,6 +119,7 @@ class FoodForm extends React.Component {
                   name="carbs"
                   type="number"
                   value={carbs}
+                  min="0"
                   onChange={this.handleChange}
                 />
                 <input
@@ -114,6 +127,7 @@ class FoodForm extends React.Component {
                   name="fats"
                   type="number"
                   value={fats}
+                  min="0"
                   onChange={this.handleChange}
                 />
                 <input
@@ -121,6 +135,7 @@ class FoodForm extends React.Component {
                   name="proteins"
                   type="number"
                   value={proteins}
+                  min="0"
                   onChange={this.handleChange}
                 />
               </div>
