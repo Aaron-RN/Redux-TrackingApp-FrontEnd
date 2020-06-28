@@ -12,10 +12,12 @@ const initialState = {
   user: { username: '', email: '', logged_in: false },
   foods: [
     {
-      name: '', date: '', servings: 0, carbs: 0, fats: 0, proteins: 0, notes: [{ body: '' }],
+      name: '', date: '', servings: 0, carbs: 0, fats: 0, proteins: 0,
     },
   ],
-  selectedFood: {},
+  selectedFood: {
+    name: '', date: '', servings: 0, carbs: 0, fats: 0, proteins: 0, notes: [{ body: '' }],
+  },
   modal: { isOpen: false, modalType: '' },
   status: { isLoading: false, errors: [] },
   filter: 'All',

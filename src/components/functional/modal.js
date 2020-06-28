@@ -8,7 +8,6 @@ const Modal = ({
   status, modal, selectedFood, closeModal, addNote,
 }) => {
   const [note, setNote] = useState({ body: '' });
-  console.log(note);
 
   let modalDisplay = (<div />);
 
@@ -29,7 +28,7 @@ const Modal = ({
             value={note.body}
             minLength="3"
             maxLength="450"
-            onChange={event => setNote(event.currentTarget.value)}
+            onChange={event => setNote({ body: event.currentTarget.value })}
           />
           <button type="submit">Add Note</button>
         </form>
@@ -94,8 +93,8 @@ const mapDispatchToProps = dispatch => ({
   closeModal: () => {
     dispatch(closeModal());
   },
-  addNote: note => {
-    dispatch(addNote(note));
+  addNote: (foodID, note) => {
+    dispatch(addNote(foodID, note));
   },
 });
 

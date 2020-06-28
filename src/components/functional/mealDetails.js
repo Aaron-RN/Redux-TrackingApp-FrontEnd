@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Note from '../presentational/note';
 import { fetchFood, removeFood, openModal } from '../../redux/actions/index';
 // import '../../assets/css/food.css';
 
@@ -21,6 +22,11 @@ const MealDetails = ({
       <div>{selectedFood.fats}</div>
       <div>{selectedFood.proteins}</div>
       <div>Total Calories: </div>
+      <div>
+        {selectedFood.notes.map(note => (
+          <Note key={note.id + selectedFood.name} note={note} />
+        ))}
+      </div>
       <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
     </div>
   );

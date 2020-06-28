@@ -80,7 +80,8 @@ const registerNewUser = user => dispatch => {
       dispatch(userRegisterSuccess(newUser, true));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'registrationForm'));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'registrationForm'));
     });
 };
 
@@ -96,7 +97,8 @@ const userLogin = user => dispatch => {
       dispatch(userLoginSuccess(retrievedUser, userLoggedIn));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'loginForm'));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'loginForm'));
     });
 };
 
@@ -114,7 +116,8 @@ const userLoggedIn = () => dispatch => {
     .catch(error => {
       const userLoggedIn = error.response.data.logged_in;
       dispatch(userLoginSuccess({}, userLoggedIn));
-      dispatch(fetchRequestFailure(error.response.status, 'logoutForm'));
+      const errorMsg = error.response.data.status || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'logoutForm'));
     });
 };
 
@@ -129,7 +132,8 @@ const userLogout = () => dispatch => {
       dispatch(userLogoutSuccess(clearUser, response.data.logged_out));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.status, 'logoutForm'));
+      const errorMsg = error.response.data.status || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'logoutForm'));
     });
 };
 
@@ -142,7 +146,8 @@ const fetchFoods = () => dispatch => {
       dispatch(fetchFoodListSuccess(response.data.food));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
     });
 };
 // Grab one food from API Database
@@ -154,7 +159,8 @@ const fetchFood = foodID => dispatch => {
       dispatch(fetchFoodSuccess(response.data.selected_food));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
     });
 };
 // Food requests
@@ -167,7 +173,8 @@ const addFood = food => dispatch => {
       dispatch(fetchFoodListSuccess(newFoodList));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'foodForm'));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'foodForm'));
     });
 };
 const removeFood = food => dispatch => {
@@ -179,7 +186,8 @@ const removeFood = food => dispatch => {
       dispatch(fetchFoodListSuccess(newFoodList));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
     });
 };
 // Food requests
@@ -191,7 +199,8 @@ const addNote = (foodID, note) => dispatch => {
       dispatch(fetchFoodSuccess(response.data.selected_food));
     })
     .catch(error => {
-      dispatch(fetchRequestFailure(error.response.data.error, 'noteForm'));
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'noteForm'));
     });
 };
 
