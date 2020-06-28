@@ -12,11 +12,12 @@ import loginPage from './components/functional/loginPage';
 import addFoodPage from './components/functional/addFood';
 import foodListPage from './components/functional/foodList';
 import mealDetailsPage from './components/functional/mealDetails';
+import Modal from './components/functional/modal';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
 
 const App = ({
-  user, userLoggedIn, userLogout,
+  modal, user, userLoggedIn, userLogout,
 }) => {
   useEffect(() => {
     userLoggedIn();
@@ -60,6 +61,12 @@ const App = ({
       </div>
     </nav>
   );
+
+  const { isOpen } = modal;
+  const showModal = isOpen
+    ? (
+      <Modal />
+    ) : null;
   return (
     <Router>
       <div className="App">
@@ -73,6 +80,7 @@ const App = ({
             <Route exact path="/register" component={registrationPage} />
             <Route exact path="/" component={loginPage} />
           </Switch>
+          {showModal}
         </main>
       </div>
     </Router>
@@ -81,14 +89,14 @@ const App = ({
 
 App.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
-  status: PropTypes.instanceOf(Object).isRequired,
+  modal: PropTypes.instanceOf(Object).isRequired,
   userLoggedIn: PropTypes.func.isRequired,
   userLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   user: state.user,
-  status: state.status,
+  modal: state.modal,
 });
 
 const mapDispatchToProps = dispatch => ({

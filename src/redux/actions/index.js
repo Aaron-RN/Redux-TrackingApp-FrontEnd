@@ -11,6 +11,9 @@ const USER_LOGOUT = 'USER_LOGOUT';
 const FETCH_FOODLIST = 'FETCH_FOODLIST';
 const FETCH_FOOD = 'FETCH_FOOD';
 const ADD_NOTE = 'ADD_NOTE';
+const SET_MODAL = 'SET_MODAL';
+const OPEN_MODAL = 'OPEN_MODAL';
+const CLOSE_MODAL = 'CLOSE_MODAL';
 const CHANGE_FILTER = 'CHANGE_FILTER';
 
 const fetchRequest = () => ({
@@ -54,7 +57,16 @@ const fetchFoodSuccess = food => ({
 
 const changeFilter = genre => ({
   type: CHANGE_FILTER,
-  genre,
+  response: genre,
+});
+
+const openModal = modalType => ({
+  type: OPEN_MODAL,
+  response: { isOpen: true, modalType },
+});
+const closeModal = () => ({
+  type: CLOSE_MODAL,
+  response: { isOpen: false, modalType: '' },
 });
 
 // Register User
@@ -170,11 +182,25 @@ const removeFood = food => dispatch => {
       dispatch(fetchRequestFailure(error.response.data.error));
     });
 };
+// Food requests
+const addNote = (foodID, note) => dispatch => {
+  dispatch(fetchRequest());
+  axios.post(`${URL}foods/${foodID}/notes`, { note }, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodSuccess(response.data.selected_food));
+    })
+    .catch(error => {
+      dispatch(fetchRequestFailure(error.response.data.error, 'noteForm'));
+    });
+};
 
 export {
   CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD, ADD_NOTE,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
+  SET_MODAL, OPEN_MODAL, CLOSE_MODAL,
   registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
-  fetchFoods, fetchFood, addFood, removeFood,
+  fetchFoods, fetchFood, addFood, removeFood, addNote,
+  openModal, closeModal,
 };

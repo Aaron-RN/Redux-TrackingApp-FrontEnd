@@ -16,6 +16,7 @@ const initialState = {
     },
   ],
   selectedFood: {},
+  modal: { isOpen: false, modalType: '' },
   status: { isLoading: false, errors: [] },
   filter: 'All',
 };
