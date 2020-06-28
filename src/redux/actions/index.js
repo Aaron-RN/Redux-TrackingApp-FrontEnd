@@ -10,7 +10,6 @@ const USER_LOGIN = 'USER_LOGIN';
 const USER_LOGOUT = 'USER_LOGOUT';
 const FETCH_FOODLIST = 'FETCH_FOODLIST';
 const FETCH_FOOD = 'FETCH_FOOD';
-const ADD_NOTE = 'ADD_NOTE';
 const SET_MODAL = 'SET_MODAL';
 const OPEN_MODAL = 'OPEN_MODAL';
 const CLOSE_MODAL = 'CLOSE_MODAL';
@@ -190,7 +189,7 @@ const removeFood = food => dispatch => {
       dispatch(fetchRequestFailure(errorMsg));
     });
 };
-// Food requests
+// Note requests
 const addNote = (foodID, note) => dispatch => {
   dispatch(fetchRequest());
   axios.post(`${URL}foods/${foodID}/notes`, { note }, { withCredentials: true })
@@ -203,13 +202,25 @@ const addNote = (foodID, note) => dispatch => {
       dispatch(fetchRequestFailure(errorMsg, 'noteForm'));
     });
 };
+const removeNote = (foodID, noteID) => dispatch => {
+  dispatch(fetchRequest());
+  axios.delete(`${URL}foods/${foodID}/notes/${noteID}`, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodSuccess(response.data.selected_food));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg));
+    });
+};
 
 export {
-  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD, ADD_NOTE,
+  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
   SET_MODAL, OPEN_MODAL, CLOSE_MODAL,
   registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
-  fetchFoods, fetchFood, addFood, removeFood, addNote,
+  fetchFoods, fetchFood, addFood, removeFood, addNote, removeNote,
   openModal, closeModal,
 };

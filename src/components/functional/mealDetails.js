@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Note from '../presentational/note';
-import { fetchFood, removeFood, openModal } from '../../redux/actions/index';
+import { fetchFood, removeFood, openModal, removeNote } from '../../redux/actions/index';
 // import '../../assets/css/food.css';
 
 const MealDetails = ({
-  match, selectedFood, fetchFood, removeFood, openModal,
+  match, selectedFood, fetchFood, removeFood, removeNote, openModal,
 }) => {
   useEffect(() => {
     fetchFood(match.params.id);
@@ -24,7 +24,7 @@ const MealDetails = ({
       <div>Total Calories: </div>
       <div>
         {selectedFood.notes.map(note => (
-          <Note key={note.id + selectedFood.name} note={note} />
+          <Note key={note.id + selectedFood.name} selectedFood={selectedFood} note={note} removeNote={removeNote} />
         ))}
       </div>
       <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
@@ -47,6 +47,7 @@ MealDetails.propTypes = {
   openModal: PropTypes.func.isRequired,
   fetchFood: PropTypes.func.isRequired,
   removeFood: PropTypes.func.isRequired,
+  removeNote: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -62,6 +63,9 @@ const mapDispatchToProps = dispatch => ({
   },
   removeFood: food => {
     dispatch(removeFood(food));
+  },
+  removeNote: (foodID, noteID) => {
+    dispatch(removeNote(foodID, noteID));
   },
 });
 
