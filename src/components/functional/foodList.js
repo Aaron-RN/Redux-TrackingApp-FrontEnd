@@ -17,16 +17,25 @@ const FoodList = ({
     sunday: false,
   });
 
+  const todaysDate = new Date();
   const useMountEffect = func => useEffect(func, []);
-
-  useMountEffect(fetchFoods);
+  const initialize = () => {
+    const todaysDay = todaysDate.toLocaleDateString('en-US', { weekday: 'long' });
+    setdaysDisplayed({ ...daysDisplayed, [todaysDay.toLowerCase()]: true });
+    fetchFoods();
+  };
+  useMountEffect(initialize);
 
   const mealsContainer = React.useRef(null);
 
-  const toggleDay = day => setdaysDisplayed({ ...daysDisplayed, [day.toLowerCase()]: !daysDisplayed[day.toLowerCase()] });
+  const toggleDay = day => setdaysDisplayed({
+    ...daysDisplayed,
+    [day.toLowerCase()]: !daysDisplayed[day.toLowerCase()],
+  });
   const showDay = day => daysDisplayed[day.toLowerCase()];
   const mealByDay = dayChosen => foods.map(meal => {
-    const date = new Date(meal.date_consumed);
+    let date = new Date(meal.date_consumed);
+    date = new Date(date.getTime() - date.getTimezoneOffset() * -60000);
     const day = date.toLocaleDateString('en-US', { weekday: 'long' });
     if (day !== dayChosen) return null;
     return (
@@ -40,7 +49,8 @@ const FoodList = ({
         /* eslint-disable camelcase */
         date_consumed, servings_consumed, carbs, fats, proteins,
       } = meal;
-      const date = new Date(date_consumed);
+      let date = new Date(date_consumed);
+      date = new Date(date.getTime() - date.getTimezoneOffset() * -60000);
       const day = date.toLocaleDateString('en-US', { weekday: 'long' });
 
       const carbCalories = carbs * 4;
@@ -63,62 +73,67 @@ const FoodList = ({
       </div>
     )
     : (
-      <div ref={mealsContainer} className="foods-section">
+      <div>
         <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Sunday')}><h2>Sunday</h2></button>
-          <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Sunday')}
-          </div>
-          {showDay('Sunday') ? mealByDay('Saturday') : null}
+          {todaysDate.toDateString()}
         </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Saturday')}><h2>Saturday</h2></button>
+        <div ref={mealsContainer} className="foods-section">
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Saturday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Sunday')}><h2>Sunday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Sunday')}
+            </div>
+            {showDay('Sunday') ? mealByDay('Saturday') : null}
           </div>
-          {showDay('Saturday') ? mealByDay('Saturday') : null}
-        </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Friday')}><h2>Friday</h2></button>
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Friday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Saturday')}><h2>Saturday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Saturday')}
+            </div>
+            {showDay('Saturday') ? mealByDay('Saturday') : null}
           </div>
-          {showDay('Friday') ? mealByDay('Friday') : null}
-        </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Thursday')}><h2>Thursday</h2></button>
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Thursday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Friday')}><h2>Friday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Friday')}
+            </div>
+            {showDay('Friday') ? mealByDay('Friday') : null}
           </div>
-          {showDay('Thursday') ? mealByDay('Thursday') : null}
-        </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Wednesday')}><h2>Wednesday</h2></button>
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Wednesday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Thursday')}><h2>Thursday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Thursday')}
+            </div>
+            {showDay('Thursday') ? mealByDay('Thursday') : null}
           </div>
-          {showDay('Wednesday') ? mealByDay('Wednesday') : null}
-        </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Tuesday')}><h2>Tuesday</h2></button>
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Tuesday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Wednesday')}><h2>Wednesday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Wednesday')}
+            </div>
+            {showDay('Wednesday') ? mealByDay('Wednesday') : null}
           </div>
-          {showDay('Tuesday') ? mealByDay('Tuesday') : null}
-        </div>
-        <div>
-          <button className="showDayBtn" type="button" onClick={() => toggleDay('Monday')}><h2>Monday</h2></button>
           <div>
-            <span>Total Calories: </span>
-            {caloriesByDay('Monday')}
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Tuesday')}><h2>Tuesday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Tuesday')}
+            </div>
+            {showDay('Tuesday') ? mealByDay('Tuesday') : null}
           </div>
-          {showDay('Monday') ? mealByDay('Monday') : null}
+          <div>
+            <button className="showDayBtn" type="button" onClick={() => toggleDay('Monday')}><h2>Monday</h2></button>
+            <div>
+              <span>Total Calories: </span>
+              {caloriesByDay('Monday')}
+            </div>
+            {showDay('Monday') ? mealByDay('Monday') : null}
+          </div>
         </div>
       </div>
     );
