@@ -31,10 +31,12 @@
 .modal {
   position: fixed;
   z-index: 8;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 50%; left: 50%;
+  width: auto; height: auto;
   background-color: #ffffffd7;
   overflow: hidden;
+  border: 1px solid #282c34;
+  transform: translate(-50%, -50%);
 }
 .modalContent{
   position: relative;

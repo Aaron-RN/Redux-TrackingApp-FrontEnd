@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { closeModal, addNote, updateNote } from '../../redux/actions/index';
+import {
+  closeModal, addNote, updateNote, removeFood, removeNote,
+} from '../../redux/actions/index';
 // import '../../assets/css/modal.css';
 
 const Modal = ({
-  status, modal, selectedFood, closeModal, addNote, updateNote,
+  status, modal, selectedFood, closeModal, addNote, updateNote, removeFood, removeNote,
 }) => {
+  const history = useHistory();
+
   const [note, setNote] = useState({ body: '' });
   let modalDisplay = (<div />);
 
@@ -15,17 +20,26 @@ const Modal = ({
     if (info && modalType === 'editNote') {
       setNote({ body: info.body });
     }
-  }, []);
+  }, [info, modalType]);
 
+  const modalRedirect = (path = '/foods') => {
+    closeModal();
+    history.push(path);
+  };
   if (modalType === 'addNote') {
     modalDisplay = (
-      <div className="addNote">
+      <div className="modalForm">
         <button type="button" onClick={closeModal}>X</button>
         <div>
           <span>Food Selected: </span>
           {selectedFood.name}
         </div>
-        <form onSubmit={() => addNote(selectedFood.id, note)} className="noteForm">
+        <form
+          onSubmit={e => {
+            e.preventDefault(); addNote(selectedFood.id, note); closeModal();
+          }}
+          className="noteForm"
+        >
           <textarea
             placeholder="Note details"
             name="body"
@@ -42,13 +56,20 @@ const Modal = ({
   }
   if (modalType === 'editNote') {
     modalDisplay = (
-      <div className="editNote">
+      <div className="modalForm">
         <button type="button" onClick={closeModal}>X</button>
         <div>
           <span>Food Selected: </span>
           {selectedFood.name}
         </div>
-        <form onSubmit={() => updateNote(selectedFood.id, { ...info, ...note })} className="noteForm">
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            updateNote(selectedFood.id, { ...info, ...note });
+            closeModal();
+          }}
+          className="noteForm"
+        >
           <textarea
             placeholder="Note details"
             name="body"
@@ -60,6 +81,30 @@ const Modal = ({
           />
           <button type="submit">Update Note</button>
         </form>
+      </div>
+    );
+  }
+  if (modalType === 'deleteFood') {
+    modalDisplay = (
+      <div className="modalForm">
+        <button type="button" onClick={closeModal}>X</button>
+        <h4>
+          {selectedFood.name}
+        </h4>
+        <p>Are you sure you want to remove this food item?</p>
+        <button type="button" onClick={() => { removeFood(selectedFood); modalRedirect(); }}>Remove Food?</button>
+      </div>
+    );
+  }
+  if (modalType === 'deleteNote') {
+    modalDisplay = (
+      <div className="modalForm">
+        <button type="button" onClick={closeModal}>X</button>
+        <h4>
+          {info.body}
+        </h4>
+        <p>Are you sure you want to remove this note?</p>
+        <button type="button" onClick={() => { removeNote(selectedFood.id, info.id); closeModal(); }}>Remove Note?</button>
       </div>
     );
   }
@@ -108,8 +153,10 @@ Modal.propTypes = {
     notes: PropTypes.instanceOf(Array),
   }).isRequired,
   closeModal: PropTypes.func.isRequired,
+  removeFood: PropTypes.func.isRequired,
   addNote: PropTypes.func.isRequired,
   updateNote: PropTypes.func.isRequired,
+  removeNote: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -122,11 +169,17 @@ const mapDispatchToProps = dispatch => ({
   closeModal: () => {
     dispatch(closeModal());
   },
+  removeFood: food => {
+    dispatch(removeFood(food));
+  },
   addNote: (foodID, note) => {
     dispatch(addNote(foodID, note));
   },
   updateNote: (foodID, note) => {
     dispatch(updateNote(foodID, note));
+  },
+  removeNote: (foodID, noteID) => {
+    dispatch(removeNote(foodID, noteID));
   },
 });
 
