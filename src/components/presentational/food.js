@@ -3,15 +3,33 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // import '../../assets/css/food.css';
 
-const Food = ({ meal }) => (
-  <div>
-    <Link to={{ pathname: `/foods/${meal.id}` }}>
-      <div>{meal.name}</div>
-      <div>{meal.servings_consumed}</div>
-      <div>Total Calories: </div>
-    </Link>
-  </div>
-);
+const Food = ({ meal }) => {
+  const {
+    /* eslint-disable camelcase */
+    name, servings_consumed, carbs, fats, proteins,
+  } = meal;
+  const carbCalories = carbs * 4;
+  const fatCalories = fats * 9;
+  const proteinCalories = proteins * 4;
+  const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
+
+  return (
+    <div>
+      <Link to={{ pathname: `/foods/${meal.id}` }}>
+        <h4>{name}</h4>
+        <div>
+          <span>Servings: </span>
+          {servings_consumed}
+        </div>
+        <div>
+          <span>Total Calories: </span>
+          {totalCalories}
+        </div>
+      </Link>
+    </div>
+  );
+};
+/* eslint-enable camelcase */
 
 Food.propTypes = {
   meal: PropTypes.shape({

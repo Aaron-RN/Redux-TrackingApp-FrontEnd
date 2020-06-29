@@ -12,25 +12,64 @@ const MealDetails = ({
     fetchFood(match.params.id);
   }, [fetchFood, match.params.id]);
 
+  const {
+    /* eslint-disable camelcase */
+    name, date_consumed, servings_consumed, carbs, fats, proteins,
+  } = selectedFood;
+  const carbCalories = carbs * 4;
+  const fatCalories = fats * 9;
+  const proteinCalories = proteins * 4;
+  const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
   return (
     <div>
-      <div>{selectedFood.name}</div>
+      <div>{name}</div>
       <button type="button" onClick={() => openModal('deleteFood')}>Remove Food</button>
-      <div>{selectedFood.date_consumed}</div>
-      <div>{selectedFood.servings_consumed}</div>
-      <div>{selectedFood.carbs}</div>
-      <div>{selectedFood.fats}</div>
-      <div>{selectedFood.proteins}</div>
-      <div>Total Calories: </div>
+      <div>{date_consumed}</div>
+      <div>
+        <span>Servings: </span>
+        {servings_consumed}
+      </div>
+      <div>
+        {carbs}
+        <span> g</span>
+        <div>
+          (
+          {carbCalories}
+          cal)
+        </div>
+      </div>
+      <div>
+        {fats}
+        <span> g</span>
+        <div>
+          (
+          {fatCalories}
+          cal)
+        </div>
+      </div>
+      <div>
+        {proteins}
+        <span> g</span>
+        <div>
+          (
+          {proteinCalories}
+          cal)
+        </div>
+      </div>
+      <div>
+        <span>Total Calories: </span>
+        {totalCalories}
+      </div>
       <div>
         {selectedFood.notes.map(note => (
-          <Note key={note.id + selectedFood.name} note={note} openModal={openModal} />
+          <Note key={note.id + name} note={note} openModal={openModal} />
         ))}
       </div>
       <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
     </div>
   );
 };
+/* eslint-enable camelcase */
 
 MealDetails.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
