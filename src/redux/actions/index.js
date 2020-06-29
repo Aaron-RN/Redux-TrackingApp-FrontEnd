@@ -176,6 +176,18 @@ const addFood = food => dispatch => {
       dispatch(fetchRequestFailure(errorMsg, 'foodForm'));
     });
 };
+const updateFood = (foodID, food) => dispatch => {
+  dispatch(fetchRequest());
+  axios.patch(`${URL}foods/${foodID}`, { food }, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodSuccess(response.data.selected_food));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'modalForm'));
+    });
+};
 const removeFood = food => dispatch => {
   dispatch(fetchRequest());
   axios.delete(`${URL}foods/${food.id}`, { withCredentials: true })
@@ -233,7 +245,7 @@ export {
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
   SET_MODAL, OPEN_MODAL, CLOSE_MODAL,
   registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
-  fetchFoods, fetchFood, addFood, removeFood,
+  fetchFoods, fetchFood, addFood, removeFood, updateFood,
   addNote, removeNote, updateNote,
   openModal, closeModal,
 };
