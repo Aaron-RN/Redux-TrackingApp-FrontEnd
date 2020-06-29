@@ -13,6 +13,14 @@ const FoodList = ({
 
   const mealsContainer = React.useRef(null);
 
+  const mealByDay = dayChosen => foods.map(meal => {
+    const date = new Date(meal.date_consumed);
+    const day = date.toLocaleDateString('en-US', { weekday: 'long' });
+    if (day !== dayChosen) return null;
+    return (
+      <Food key={meal.id + meal.name} foodsList={foods} meal={meal} removeFood={removeFood} />
+    );
+  });
   const { isLoading } = status;
   const renderMain = isLoading
     ? (
@@ -23,9 +31,34 @@ const FoodList = ({
     )
     : (
       <div ref={mealsContainer} className="foods-section">
-        {foods.map(meal => (
-          <Food key={meal.id + meal.name} foodsList={foods} meal={meal} removeFood={removeFood} />
-        ))}
+        <div>
+          <h2>Sunday</h2>
+          {mealByDay('Sunday')}
+        </div>
+        <div>
+          <h2>Saturday</h2>
+          {mealByDay('Saturday')}
+        </div>
+        <div>
+          <h2>Friday</h2>
+          {mealByDay('Friday')}
+        </div>
+        <div>
+          <h2>Thursday</h2>
+          {mealByDay('Thursday')}
+        </div>
+        <div>
+          <h2>Wednesday</h2>
+          {mealByDay('Wednesday')}
+        </div>
+        <div>
+          <h2>Tuesday</h2>
+          {mealByDay('Tuesday')}
+        </div>
+        <div>
+          <h2>Monday</h2>
+          {mealByDay('Monday')}
+        </div>
       </div>
     );
   return renderMain;
