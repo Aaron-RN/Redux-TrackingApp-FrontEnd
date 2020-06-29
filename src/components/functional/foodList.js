@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Food from '../presentational/food';
@@ -7,12 +7,24 @@ import { fetchFoods, removeFood } from '../../redux/actions/index';
 const FoodList = ({
   status, foods, fetchFoods, removeFood,
 }) => {
+  const [daysDisplayed, setdaysDisplayed] = useState({
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false,
+  });
+
   const useMountEffect = func => useEffect(func, []);
 
   useMountEffect(fetchFoods);
 
   const mealsContainer = React.useRef(null);
 
+  const toggleDay = day => setdaysDisplayed({ ...daysDisplayed, [day.toLowerCase()]: !daysDisplayed[day.toLowerCase()] });
+  const showDay = day => daysDisplayed[day.toLowerCase()];
   const mealByDay = dayChosen => foods.map(meal => {
     const date = new Date(meal.date_consumed);
     const day = date.toLocaleDateString('en-US', { weekday: 'long' });
@@ -53,60 +65,60 @@ const FoodList = ({
     : (
       <div ref={mealsContainer} className="foods-section">
         <div>
-          <h2>Sunday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Sunday')}><h2>Sunday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Sunday')}
           </div>
-          {mealByDay('Sunday')}
+          {showDay('Sunday') ? mealByDay('Saturday') : null}
         </div>
         <div>
-          <h2>Saturday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Saturday')}><h2>Saturday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Saturday')}
           </div>
-          {mealByDay('Saturday')}
+          {showDay('Saturday') ? mealByDay('Saturday') : null}
         </div>
         <div>
-          <h2>Friday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Friday')}><h2>Friday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Friday')}
           </div>
-          {mealByDay('Friday')}
+          {showDay('Friday') ? mealByDay('Friday') : null}
         </div>
         <div>
-          <h2>Thursday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Thursday')}><h2>Thursday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Thursday')}
           </div>
-          {mealByDay('Thursday')}
+          {showDay('Thursday') ? mealByDay('Thursday') : null}
         </div>
         <div>
-          <h2>Wednesday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Wednesday')}><h2>Wednesday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Wednesday')}
           </div>
-          {mealByDay('Wednesday')}
+          {showDay('Wednesday') ? mealByDay('Wednesday') : null}
         </div>
         <div>
-          <h2>Tuesday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Tuesday')}><h2>Tuesday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Tuesday')}
           </div>
-          {mealByDay('Tuesday')}
+          {showDay('Tuesday') ? mealByDay('Tuesday') : null}
         </div>
         <div>
-          <h2>Monday</h2>
+          <button className="showDayBtn" type="button" onClick={() => toggleDay('Monday')}><h2>Monday</h2></button>
           <div>
             <span>Total Calories: </span>
             {caloriesByDay('Monday')}
           </div>
-          {mealByDay('Monday')}
+          {showDay('Monday') ? mealByDay('Monday') : null}
         </div>
       </div>
     );
