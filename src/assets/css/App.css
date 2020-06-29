@@ -1,3 +1,8 @@
+h2 {
+  margin-block-start: 8px;
+  margin-block-end: 6px;
+}
+
 .App {
   text-align: center;
 }
