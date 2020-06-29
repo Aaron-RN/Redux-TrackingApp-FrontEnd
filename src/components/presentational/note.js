@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import '../../assets/css/note.css';
 
-const Note = ({ selectedFood, note, removeNote }) => (
+const Note = ({
+  selectedFood, note, removeNote, openModal,
+}) => (
   <div>
     {note.body}
-    <button type="button" onClick={() => removeNote(selectedFood.id, note.id)}>Remove Food</button>
+    <button type="button" onClick={() => openModal('editNote', note)}>Edit Note</button>
+    <button type="button" onClick={() => removeNote(selectedFood.id, note.id)}>Remove Note</button>
   </div>
 );
 
@@ -25,6 +28,7 @@ Note.propTypes = {
     body: PropTypes.string,
   }).isRequired,
   removeNote: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default Note;

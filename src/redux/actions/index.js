@@ -59,9 +59,9 @@ const changeFilter = genre => ({
   response: genre,
 });
 
-const openModal = modalType => ({
+const openModal = (modalType, info) => ({
   type: OPEN_MODAL,
-  response: { isOpen: true, modalType },
+  response: { isOpen: true, modalType, info },
 });
 const closeModal = () => ({
   type: CLOSE_MODAL,
@@ -199,7 +199,19 @@ const addNote = (foodID, note) => dispatch => {
     })
     .catch(error => {
       const errorMsg = error.response.data.error || [`${error.response.statusText}`];
-      dispatch(fetchRequestFailure(errorMsg, 'noteForm'));
+      dispatch(fetchRequestFailure(errorMsg, 'modalForm'));
+    });
+};
+const updateNote = (foodID, note) => dispatch => {
+  dispatch(fetchRequest());
+  axios.patch(`${URL}foods/${foodID}/notes/${note.id}`, { note }, { withCredentials: true })
+    .then(response => {
+      dispatch(fetchRequestSuccess(response.data.status));
+      dispatch(fetchFoodSuccess(response.data.selected_food));
+    })
+    .catch(error => {
+      const errorMsg = error.response.data.error || [`${error.response.statusText}`];
+      dispatch(fetchRequestFailure(errorMsg, 'modalForm'));
     });
 };
 const removeNote = (foodID, noteID) => dispatch => {
@@ -221,6 +233,7 @@ export {
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
   SET_MODAL, OPEN_MODAL, CLOSE_MODAL,
   registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
-  fetchFoods, fetchFood, addFood, removeFood, addNote, removeNote,
+  fetchFoods, fetchFood, addFood, removeFood,
+  addNote, removeNote, updateNote,
   openModal, closeModal,
 };

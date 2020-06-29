@@ -24,7 +24,7 @@ const MealDetails = ({
       <div>Total Calories: </div>
       <div>
         {selectedFood.notes.map(note => (
-          <Note key={note.id + selectedFood.name} selectedFood={selectedFood} note={note} removeNote={removeNote} />
+          <Note key={note.id + selectedFood.name} selectedFood={selectedFood} note={note} removeNote={removeNote} openModal={openModal} />
         ))}
       </div>
       <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
@@ -55,8 +55,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openModal: modalType => {
-    dispatch(openModal(modalType));
+  openModal: (modalType, info) => {
+    dispatch(openModal(modalType, info));
   },
   fetchFood: foodID => {
     dispatch(fetchFood(foodID));

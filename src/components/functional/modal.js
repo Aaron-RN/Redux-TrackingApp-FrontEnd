@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { closeModal, addNote } from '../../redux/actions/index';
+import { closeModal, addNote, updateNote } from '../../redux/actions/index';
 // import '../../assets/css/modal.css';
 
 const Modal = ({
-  status, modal, selectedFood, closeModal, addNote,
+  status, modal, selectedFood, closeModal, addNote, updateNote,
 }) => {
   const [note, setNote] = useState({ body: '' });
-
   let modalDisplay = (<div />);
 
-  const { modalType } = modal;
+  const { modalType, info } = modal;
+  useEffect(() => {
+    if (info && modalType === 'editNote') {
+      setNote({ body: info.body });
+    }
+  }, []);
+
   if (modalType === 'addNote') {
     modalDisplay = (
       <div className="addNote">
@@ -35,13 +40,36 @@ const Modal = ({
       </div>
     );
   }
+  if (modalType === 'editNote') {
+    modalDisplay = (
+      <div className="editNote">
+        <button type="button" onClick={closeModal}>X</button>
+        <div>
+          <span>Food Selected: </span>
+          {selectedFood.name}
+        </div>
+        <form onSubmit={() => updateNote(selectedFood.id, { ...info, ...note })} className="noteForm">
+          <textarea
+            placeholder="Note details"
+            name="body"
+            type="text"
+            value={note.body}
+            minLength="3"
+            maxLength="450"
+            onChange={event => setNote({ body: event.currentTarget.value })}
+          />
+          <button type="submit">Update Note</button>
+        </form>
+      </div>
+    );
+  }
   const { isLoading, errors, form } = status;
   const errorDiv = error => (
     <div key={error}>
       {error}
     </div>
   );
-  const showErrors = form === 'noteForm' ? (
+  const showErrors = form === 'modalForm' ? (
     <div className="errors">
       {errors.map(error => errorDiv(error))}
     </div>
@@ -81,6 +109,7 @@ Modal.propTypes = {
   }).isRequired,
   closeModal: PropTypes.func.isRequired,
   addNote: PropTypes.func.isRequired,
+  updateNote: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -95,6 +124,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addNote: (foodID, note) => {
     dispatch(addNote(foodID, note));
+  },
+  updateNote: (foodID, note) => {
+    dispatch(updateNote(foodID, note));
   },
 });
 
