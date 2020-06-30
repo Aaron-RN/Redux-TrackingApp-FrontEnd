@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Note from '../presentational/note';
 import { fetchFood, openModal } from '../../redux/actions/index';
-// import '../../assets/css/food.css';
+import '../../assets/css/meal.css';
 
 const MealDetails = ({
   match, user, selectedFood, fetchFood, openModal, redirectToLogin,

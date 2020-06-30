@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addFood } from '../../redux/actions/index';
-// import '../assets/css/registrationForm.css';
 
 class FoodForm extends React.Component {
   constructor(props) {

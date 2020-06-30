@@ -103,6 +103,12 @@ nav {
   color: #bbbbbb;
   text-decoration: none;
 }
+.activeLink {
+  background-color: var(--bg-main);
+}
+.activeLink a {
+  color: #fff;
+}
 
 .modal {
   position: fixed;

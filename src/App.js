@@ -33,6 +33,12 @@ const App = ({
   if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
   // if (user.logged_in && window.location.pathname === '/login') return redirectToTrackIt();
 
+  const activeLink = path => {
+    if (window.location.pathname === path) {
+      return 'activeLink';
+    }
+    return '';
+  };
   const nav = (
     <nav>
       <div className="horizontal-list">

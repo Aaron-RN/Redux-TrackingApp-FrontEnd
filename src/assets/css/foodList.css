@@ -1,0 +1,25 @@
+.foodHeader {
+  background-color: #fff;
+  padding: 0.5em;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.showDayBtn {
+  border: none;
+}
+.showDayBtn > h2 {
+  display: inline-block;
+  padding-right: 4px;
+}
+.showDayBtn[data-dayDisplayed="+"] > .plus {
+  display: inline-block;
+}
+.showDayBtn[data-dayDisplayed="+"] > .minus {
+  display: none;
+}
+.showDayBtn[data-dayDisplayed="-"] > .plus {
+  display: none;
+}
+.showDayBtn[data-dayDisplayed="-"] > .minus {
+  display: inline-block;
+}
