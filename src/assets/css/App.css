@@ -43,9 +43,11 @@ nav {
 .italic { font-style: italic; }
 
 .App {
+  margin: auto;
   text-align: center;
   background-color: #f7f7f7;
   min-height: 100vh;
+  max-width: 1080px;
 }
 
 .appHeader {
@@ -68,6 +70,9 @@ nav {
   align-items: center;
   font-size: 0.6em;
   min-height: 56px;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .horizontal-list i {
   display: block;

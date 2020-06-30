@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userLogin } from '../../redux/actions/index';
-// import '../assets/css/registrationForm.css';
 
 class LoginForm extends React.Component {
   constructor(props) {
