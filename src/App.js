@@ -22,12 +22,16 @@ const App = ({
   const redirectToLogin = () => (
     <Redirect push to={{ pathname: '/login' }} />
   );
+  // const redirectToTrackIt = () => (
+  //   <Redirect push to={{ pathname: '/foods' }} />
+  // );
 
   useEffect(() => {
     userLoggedIn();
   }, [userLoggedIn]);
 
   if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
+  // if (user.logged_in && window.location.pathname === '/login') return redirectToTrackIt();
 
   const nav = (
     <nav>
@@ -47,14 +51,12 @@ const App = ({
         <Link to={{ pathname: '/register' }}>
           <div>
             <i className="fas fa-chart-pie" />
-            <span>Register</span>
+            <span>Progress</span>
           </div>
         </Link>
         <Link to={{ pathname: '/settings' }}>
-          <div>
-            <i className="fas fa-ellipsis-h" />
-            <span>More</span>
-          </div>
+          <i className="fas fa-ellipsis-h" />
+          <span>More</span>
         </Link>
       </div>
     </nav>
@@ -65,6 +67,7 @@ const App = ({
     ? (
       <Modal />
     ) : null;
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <div className="App">
       <header className="appHeader">
@@ -75,11 +78,11 @@ const App = ({
           <button type="button" onClick={() => userLogout()}>Logout</button>
         </div>
       </header>
-      <main className="App-body">
+      <main>
         <Switch>
-          <Route exact path="/foods/:id" component={() => <MealDetailsPage redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/foods" component={() => <FoodListPage redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/addFood" component={() => <AddFoodPage redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/foods/:id" render={props => <MealDetailsPage match={props.match} redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/foods" render={props => <FoodListPage {...props} redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/addFood" render={props => <AddFoodPage {...props} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegistrationPage} />
           <Route exact path="/" component={LoginPage} />
@@ -89,9 +92,14 @@ const App = ({
       <footer>{nav}</footer>
     </div>
   );
+  /* eslint-enable react/jsx-props-no-spreading */
 };
 
+App.defaultProps = {
+  match: { },
+};
 App.propTypes = {
+  match: PropTypes.instanceOf(Object),
   user: PropTypes.instanceOf(Object).isRequired,
   modal: PropTypes.instanceOf(Object).isRequired,
   userLoggedIn: PropTypes.func.isRequired,

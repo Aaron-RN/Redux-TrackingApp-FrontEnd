@@ -6,7 +6,10 @@
 
 /* Set default transition durations */
 * {
-  transition-duration: 0.25s;
+  transition-delay: 0s;
+  transition-duration: 0.5s;
+  transition-property: all;
+  transition-timing-function: ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -19,22 +22,35 @@ nav {
   position: fixed;
   bottom: 0; left: 0;
   margin-left: auto; margin-right: auto;
-  height: 56px;
+  min-height: 56px;
   width: 100%;
   background-color: #323741;
   overflow: hidden;
+  z-index: 9;
+}
+
+:root {
+  --bg-blue: #62B5E5;
+  --bg-main: #ffd261;
+  --bg-main-1: #e7c05e;
+  --bg-dark: #333;
 }
 
 .capitalize {
   text-transform: capitalize;
 }
+.bold { font-weight: bold; }
+.italic { font-style: italic; }
 
 .App {
   text-align: center;
+  background-color: #f7f7f7;
+  min-height: 100vh;
 }
 
 .appHeader {
-  background-color: #62B5E5;
+  position: relative;
+  background-color: var(--bg-main);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,13 +58,16 @@ nav {
   color: white;
   padding: 1em;
   font-weight: bold;
+  border-bottom: 1px solid var(--bg-main-1);
+  box-shadow: 0px 4px 12px #e4e4e4;
+  z-index: 2;
 }
 
 .horizontal-list {
   display: flex;
   align-items: center;
   font-size: 0.6em;
-  height: 56px;
+  min-height: 56px;
 }
 .horizontal-list i {
   display: block;
@@ -57,11 +76,11 @@ nav {
 .horizontal-list > * {
   flex-basis: 25%;
   padding: 1em;
-  height: 56px;
+  /* height: 56px; */
 }
 .horizontal-list > *:hover {
   color: #fff;
-  background-color: #62B5E5;
+  background-color: var(--bg-main);
 }
 .horizontal-list > *:hover a {
   color: #fff;
@@ -86,6 +105,59 @@ nav {
   width: 100%; height: 100%;
   z-index: 9;
   overflow: auto;
+}
+
+.formTitle {
+  position: relative;
+  background-color: #fff;
+  padding: 8px;
+  border-bottom: 4px solid #e4e4e4;
+  box-shadow: 0px 4px 8px #e4e4e4;
+  margin-bottom: 1em;
+  z-index: 1;
+}
+.form {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  padding: 2em;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25em;
+  box-shadow: 0px 4px 8px #e4e4e4;
+  z-index: 1;
+}
+.form input {
+  display: block;
+  padding: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  border: 1px solid #e4e4e4;
+}
+.form input:focus {
+  outline: 2px solid var(--bg-main);
+}
+.form input::placeholder {
+  font-size: 0.8em;
+  font-family: 'HelveticaNeue', sans-serif;
+}
+.form button {
+  font-size: 0.9em;
+  padding: 6px 26px;
+  border: 1px solid #ddd;
+  border-radius: 0.25em;
+  margin-top: 0.5em;
+}
+.form button:hover {
+  transform: scale(1.02);
+}
+
+.errors {
+  color: #b32d2d;
+  font-size: 0.85em;
+}
+.errors > *:before {
+  content: '• ';
 }
 
 .App-logo {

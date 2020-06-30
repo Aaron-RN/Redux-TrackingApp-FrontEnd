@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     const { userLogin } = this.props;
     const { loginCreds, password } = this.state;
-    const user = { username: loginCreds, email: loginCreds, password };
+    const user = { username: loginCreds.toLowerCase(), email: loginCreds.toLowerCase(), password };
 
     e.preventDefault();
     userLogin(user);
@@ -66,32 +66,32 @@ class LoginForm extends React.Component {
         </div>
       )
       : (
-        <div className="bg-header round-bottom box-shadow">
-          <div className="center max-width-90 border-top">
-            <div className="formTitle">Sign In</div>
+        <div className="center max-width-90 border-top">
+          <div className="formTitle">
+            <h3>Sign In</h3>
             {showErrors}
-            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="loginForm">
-              <div>
-                <input
-                  placeholder="Username or Email"
-                  name="loginCreds"
-                  type="text"
-                  value={loginCreds}
-                  minLength="3"
-                  onChange={this.handleChange}
-                />
-                <input
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  minLength="3"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <button type="submit">Login</button>
-            </form>
           </div>
+          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">
+            <div>
+              <input
+                placeholder="Username or Email"
+                name="loginCreds"
+                type="text"
+                value={loginCreds}
+                minLength="3"
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={password}
+                minLength="3"
+                onChange={this.handleChange}
+              />
+            </div>
+            <button type="submit">Login</button>
+          </form>
         </div>
       );
     return renderMain;
