@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { registerNewUser } from '../../redux/actions/index';
 // import '../assets/css/registrationForm.css';
@@ -69,45 +70,48 @@ class RegistrationForm extends React.Component {
         </div>
       )
       : (
-        <div className="bg-header round-bottom box-shadow">
-          <div className="center max-width-90 border-top">
-            <div className="formTitle">New User?</div>
+        <div className="container">
+          <div className="formTitle">
+            <h3>New User?</h3>
             {showErrors}
-            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="registrationForm">
-              <div>
-                <input
-                  placeholder="Username"
-                  name="username"
-                  type="text"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <input
-                  placeholder="Email"
-                  name="email"
-                  type="text"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <input
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-                <input
-                  placeholder="Password Confirmation"
-                  name="password_confirm"
-                  type="password"
-                  // eslint-disable-next-line camelcase
-                  value={password_confirm}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <button type="submit">Register</button>
-            </form>
           </div>
+          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">
+            <div>
+              <input
+                placeholder="Username"
+                name="username"
+                type="text"
+                value={username}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Email"
+                name="email"
+                type="text"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+              <input
+                placeholder="Password Confirmation"
+                name="password_confirm"
+                type="password"
+                // eslint-disable-next-line camelcase
+                value={password_confirm}
+                onChange={this.handleChange}
+              />
+            </div>
+            <button type="submit">Register</button>
+            <Link to="/login">
+              <span>Already signed up?</span>
+            </Link>
+          </form>
         </div>
       );
     return renderMain;

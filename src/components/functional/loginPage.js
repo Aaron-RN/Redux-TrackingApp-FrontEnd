@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userLogin } from '../../redux/actions/index';
 // import '../assets/css/registrationForm.css';
@@ -91,6 +92,9 @@ class LoginForm extends React.Component {
               />
             </div>
             <button type="submit">Login</button>
+            <Link to="/register">
+              <span>Not signed up yet?</span>
+            </Link>
           </form>
         </div>
       );

@@ -144,12 +144,20 @@ nav {
 .form button {
   font-size: 0.9em;
   padding: 6px 26px;
+  background-color: #f1f1f1;
   border: 1px solid #ddd;
   border-radius: 0.25em;
   margin-top: 0.5em;
 }
 .form button:hover {
   transform: scale(1.02);
+}
+.form a {
+  display: block;
+  text-decoration: none;
+  color: #54b4b4;
+  font-size: 0.6em;
+  margin-top: 6px;
 }
 
 .errors {

@@ -71,7 +71,7 @@ const App = ({
   return (
     <div className="App">
       <header className="appHeader">
-        <div className="font-header">ARN Calorie Track.it</div>
+        <div className="font-header">Calorie Track.it</div>
         <div className="capitalize">
           <span>Hi </span>
           {user.username}
