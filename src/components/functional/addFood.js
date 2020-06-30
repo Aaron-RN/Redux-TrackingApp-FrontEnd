@@ -91,11 +91,13 @@ class FoodForm extends React.Component {
         </div>
       )
       : (
-        <div className="bg-header round-bottom box-shadow">
-          <div className="center max-width-90 border-top">
-            <div className="formTitle">Add New food</div>
+        <div className="overflow-hidden height-100vh">
+          <header className="formTitle">
+            <h3>Add a Meal</h3>
             {showErrors}
-            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="foodForm">
+          </header>
+          <div className="p-t p-b max-height-auto">
+            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">
               <div>
                 <input
                   placeholder="Name of food"
@@ -148,7 +150,7 @@ class FoodForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button type="submit">Add Food</button>
+              <button type="submit">Add Meal</button>
             </form>
           </div>
         </div>

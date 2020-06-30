@@ -66,35 +66,37 @@ class LoginForm extends React.Component {
         </div>
       )
       : (
-        <div className="center max-width-90 border-top">
+        <div className="overflow-hidden height-100vh">
           <div className="formTitle">
             <h3>Sign In</h3>
             {showErrors}
           </div>
-          <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">
-            <div>
-              <input
-                placeholder="Username or Email"
-                name="loginCreds"
-                type="text"
-                value={loginCreds}
-                minLength="3"
-                onChange={this.handleChange}
-              />
-              <input
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                minLength="3"
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit">Login</button>
-            <Link to="/register">
-              <span>Not signed up yet?</span>
-            </Link>
-          </form>
+          <div className="p-t p-b max-height-auto">
+            <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">
+              <div>
+                <input
+                  placeholder="Username or Email"
+                  name="loginCreds"
+                  type="text"
+                  value={loginCreds}
+                  minLength="3"
+                  onChange={this.handleChange}
+                />
+                <input
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  minLength="3"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <button type="submit">Login</button>
+              <Link to="/register">
+                <span>Not signed up yet?</span>
+              </Link>
+            </form>
+          </div>
         </div>
       );
     return renderMain;

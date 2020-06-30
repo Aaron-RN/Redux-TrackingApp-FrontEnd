@@ -78,7 +78,7 @@ const App = ({
           <button type="button" onClick={() => userLogout()}>Logout</button>
         </div>
       </header>
-      <main>
+      <main className="max-height-auto">
         <Switch>
           <Route exact path="/foods/:id" render={props => <MealDetailsPage match={props.match} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/foods" render={props => <FoodListPage {...props} redirectToLogin={redirectToLogin} />} />
