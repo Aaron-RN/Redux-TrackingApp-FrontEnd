@@ -69,7 +69,7 @@ class RegistrationForm extends React.Component {
         </div>
       )
       : (
-        <div className="overflow-hidden height-100vh">
+        <div className="max-height-hidden">
           <div className="formTitle">
             <h3>New User?</h3>
             {showErrors}

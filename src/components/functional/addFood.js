@@ -90,7 +90,7 @@ class FoodForm extends React.Component {
         </div>
       )
       : (
-        <div className="overflow-hidden height-100vh">
+        <div className="max-height-hidden">
           <header className="formTitle">
             <h3>Add a Meal</h3>
             {showErrors}

@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-block-end: 6px;
 }
 button { cursor: pointer; }
+.bareBtn { background-color: transparent; border: none;}
 nav {
   display: block;
   position: fixed;
@@ -44,8 +45,9 @@ nav {
 .overflow-hidden { overflow: hidden; }
 .overflow-auto { overflow: auto; }
 .p-t { padding-top: 1em; }
-.p-b { padding-bottom: 220px; }
+.p-b { padding-bottom: 80px; }
 .max-height-hidden { height: 100%; overflow-y: hidden;}
+.height-main-hidden { height: 76%; overflow-y: auto;}
 .max-height-auto { height: 100%; overflow-y: auto;}
 .height-100vh { height: 100vh; }
 
@@ -206,4 +208,26 @@ nav {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ScrollBar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #252525;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }

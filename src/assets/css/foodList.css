@@ -3,6 +3,9 @@
   padding: 0.5em;
   border-bottom: 1px solid #e4e4e4;
 }
+.foodSection {
+  font-size: 1em;
+}
 
 .showDayBtn {
   border: none;

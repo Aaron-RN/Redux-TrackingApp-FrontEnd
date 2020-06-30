@@ -1,0 +1,12 @@
+.foodItem {
+  display: inline-block;
+  font-size: 0.8em;
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  padding: 6px;
+  margin: 4px;
+}
+.foodLink {
+  color: #616772;
+  text-decoration: none;
+}

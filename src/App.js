@@ -81,10 +81,12 @@ const App = ({
         <div className="capitalize">
           <span>Hi </span>
           {user.username}
-          <button type="button" onClick={() => userLogout()}>Logout</button>
+          <button className="bareBtn" type="button" onClick={() => userLogout()}>
+            <i className="fas fa-sign-out-alt" />
+          </button>
         </div>
       </header>
-      <main className="max-height-auto">
+      <main className="height-main-hidden">
         <Switch>
           <Route exact path="/foods/:id" render={props => <MealDetailsPage match={props.match} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/foods" render={props => <FoodListPage {...props} redirectToLogin={redirectToLogin} />} />

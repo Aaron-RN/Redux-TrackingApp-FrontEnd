@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import '../../assets/css/food.css';
+import '../../assets/css/food.css';
 
 const Food = ({ meal }) => {
   const {
@@ -14,15 +14,15 @@ const Food = ({ meal }) => {
   const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
 
   return (
-    <div>
-      <Link to={{ pathname: `/foods/${meal.id}` }}>
+    <div className="foodItem">
+      <Link to={{ pathname: `/foods/${meal.id}` }} className="foodLink">
         <h4>{name}</h4>
-        <div>
+        <div className="servings">
           <span>Servings: </span>
           {servings_consumed}
         </div>
-        <div>
-          <span>Total Calories: </span>
+        <div className="calories">
+          <span>Calories: </span>
           {totalCalories}
         </div>
       </Link>
