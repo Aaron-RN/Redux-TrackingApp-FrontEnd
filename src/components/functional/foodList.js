@@ -5,7 +5,7 @@ import Food from '../presentational/food';
 import { fetchFoods, removeFood } from '../../redux/actions/index';
 
 const FoodList = ({
-  status, foods, fetchFoods, removeFood,
+  status, user, foods, fetchFoods, removeFood, redirectToLogin,
 }) => {
   const [daysDisplayed, setdaysDisplayed] = useState({
     monday: false,
@@ -137,16 +137,20 @@ const FoodList = ({
         </div>
       </div>
     );
-  return renderMain;
+  const { logged_in } = user;
+  return logged_in ? renderMain : redirectToLogin();
 };
 
 FoodList.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   foods: PropTypes.instanceOf(Object).isRequired,
   fetchFoods: PropTypes.func.isRequired,
+  redirectToLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  user: state.user,
   status: state.status,
   foods: state.foods,
 });

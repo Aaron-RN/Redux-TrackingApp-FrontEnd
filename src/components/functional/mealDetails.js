@@ -6,7 +6,7 @@ import { fetchFood, openModal } from '../../redux/actions/index';
 // import '../../assets/css/food.css';
 
 const MealDetails = ({
-  match, selectedFood, fetchFood, openModal,
+  match, user, selectedFood, fetchFood, openModal, redirectToLogin,
 }) => {
   useEffect(() => {
     fetchFood(match.params.id);
@@ -20,58 +20,61 @@ const MealDetails = ({
   const fatCalories = fats * 9;
   const proteinCalories = proteins * 4;
   const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
-  return (
-    <div>
-      <div>{name}</div>
-      <button type="button" onClick={() => openModal('deleteFood')}>Remove Food</button>
-      <div>{date_consumed}</div>
+  const { logged_in } = user;
+  return !logged_in ? redirectToLogin()
+    : (
       <div>
-        <span>Servings: </span>
-        {servings_consumed}
-      </div>
-      <div>
-        {carbs}
-        <span> g</span>
+        <div>{name}</div>
+        <button type="button" onClick={() => openModal('deleteFood')}>Remove Food</button>
+        <div>{date_consumed}</div>
         <div>
-          (
-          {carbCalories}
-          cal)
+          <span>Servings: </span>
+          {servings_consumed}
         </div>
-      </div>
-      <div>
-        {fats}
-        <span> g</span>
         <div>
-          (
-          {fatCalories}
-          cal)
+          {carbs}
+          <span> g</span>
+          <div>
+            (
+            {carbCalories}
+            cal)
+          </div>
         </div>
-      </div>
-      <div>
-        {proteins}
-        <span> g</span>
         <div>
-          (
-          {proteinCalories}
-          cal)
+          {fats}
+          <span> g</span>
+          <div>
+            (
+            {fatCalories}
+            cal)
+          </div>
         </div>
+        <div>
+          {proteins}
+          <span> g</span>
+          <div>
+            (
+            {proteinCalories}
+            cal)
+          </div>
+        </div>
+        <div>
+          <span>Total Calories: </span>
+          {totalCalories}
+        </div>
+        <div>
+          {selectedFood.notes.map(note => (
+            <Note key={note.id + name} note={note} openModal={openModal} />
+          ))}
+        </div>
+        <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
       </div>
-      <div>
-        <span>Total Calories: </span>
-        {totalCalories}
-      </div>
-      <div>
-        {selectedFood.notes.map(note => (
-          <Note key={note.id + name} note={note} openModal={openModal} />
-        ))}
-      </div>
-      <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
-    </div>
-  );
+    );
 };
 /* eslint-enable camelcase */
 
 MealDetails.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   match: PropTypes.instanceOf(Object).isRequired,
   selectedFood: PropTypes.shape({
     id: PropTypes.number,
@@ -85,9 +88,11 @@ MealDetails.propTypes = {
   }).isRequired,
   openModal: PropTypes.func.isRequired,
   fetchFood: PropTypes.func.isRequired,
+  redirectToLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  user: state.user,
   selectedFood: state.selectedFood,
 });
 

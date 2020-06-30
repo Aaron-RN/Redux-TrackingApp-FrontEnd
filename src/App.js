@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
+  Redirect,
 } from 'react-router-dom';
-import registrationPage from './components/functional/registrationPage';
-import loginPage from './components/functional/loginPage';
-import addFoodPage from './components/functional/addFood';
-import foodListPage from './components/functional/foodList';
-import mealDetailsPage from './components/functional/mealDetails';
+import RegistrationPage from './components/functional/registrationPage';
+import LoginPage from './components/functional/loginPage';
+import AddFoodPage from './components/functional/addFood';
+import FoodListPage from './components/functional/foodList';
+import MealDetailsPage from './components/functional/mealDetails';
 import Modal from './components/functional/modal';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
@@ -19,45 +19,43 @@ import './assets/css/App.css';
 const App = ({
   modal, user, userLoggedIn, userLogout,
 }) => {
+  const redirectToLogin = () => (
+    <Redirect push to={{ pathname: '/login' }} />
+  );
+
   useEffect(() => {
     userLoggedIn();
   }, [userLoggedIn]);
 
+  if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
+
   const nav = (
     <nav>
-      <div className="center container">
-        <div className="font-header">ARN Calorie Tracker</div>
-        <div>
-          <span>Hi </span>
-          {user.username}
-          ,
-        </div>
-        <div>
-          <div className="horizontal-list">
-            <div>
-              <Link to={{ pathname: '/register' }}>
-                <span>Register </span>
-              </Link>
-            </div>
-            <div>
-              <Link to={{ pathname: '/login' }}>
-                <span>Login </span>
-              </Link>
-            </div>
-            <div>
-              <Link to={{ pathname: '/addFood' }}>
-                <span>Add New Food </span>
-              </Link>
-            </div>
-            <div>
-              <Link to={{ pathname: '/foods' }}>
-                <span>Food List</span>
-              </Link>
-            </div>
-            <button type="button" onClick={() => userLogout()}>Logout</button>
+      <div className="horizontal-list">
+        <Link to={{ pathname: '/addFood' }}>
+          <div>
+            <i className="fas fa-utensils" />
+            <span>Add Calories</span>
           </div>
-        </div>
-        <div className="logo" />
+        </Link>
+        <Link to={{ pathname: '/foods' }}>
+          <div>
+            <i className="fas fa-chart-line" />
+            <span>Track.it</span>
+          </div>
+        </Link>
+        <Link to={{ pathname: '/register' }}>
+          <div>
+            <i className="fas fa-chart-pie" />
+            <span>Register</span>
+          </div>
+        </Link>
+        <Link to={{ pathname: '/settings' }}>
+          <div>
+            <i className="fas fa-ellipsis-h" />
+            <span>More</span>
+          </div>
+        </Link>
       </div>
     </nav>
   );
@@ -68,22 +66,28 @@ const App = ({
       <Modal />
     ) : null;
   return (
-    <Router>
-      <div className="App">
-        {nav}
-        <main className="App-body">
-          <Switch>
-            <Route exact path="/foods/:id" component={mealDetailsPage} />
-            <Route exact path="/foods" component={foodListPage} />
-            <Route exact path="/addFood" component={addFoodPage} />
-            <Route exact path="/login" component={loginPage} />
-            <Route exact path="/register" component={registrationPage} />
-            <Route exact path="/" component={loginPage} />
-          </Switch>
-          {showModal}
-        </main>
-      </div>
-    </Router>
+    <div className="App">
+      <header className="appHeader">
+        <div className="font-header">ARN Calorie Track.it</div>
+        <div className="capitalize">
+          <span>Hi </span>
+          {user.username}
+          <button type="button" onClick={() => userLogout()}>Logout</button>
+        </div>
+      </header>
+      <main className="App-body">
+        <Switch>
+          <Route exact path="/foods/:id" component={() => <MealDetailsPage redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/foods" component={() => <FoodListPage redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/addFood" component={() => <AddFoodPage redirectToLogin={redirectToLogin} />} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegistrationPage} />
+          <Route exact path="/" component={LoginPage} />
+        </Switch>
+        {showModal}
+      </main>
+      <footer>{nav}</footer>
+    </div>
   );
 };
 
