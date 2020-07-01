@@ -100,14 +100,16 @@ const FoodList = ({
         </header>
         <div ref={mealsContainer} className="foodSection p-t p-b max-height-auto">
           <div>
-            <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Sunday', e)}>
-              <h2>Sunday</h2>
-              <i className="plus far fa-plus-square" />
-              <i className="minus far fa-minus-square" />
-            </button>
             <div>
-              <span>Total Calories: </span>
-              {caloriesByDay('Sunday')}
+              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Sunday', e)}>
+                <h2>Sunday</h2>
+                <i className="plus far fa-plus-square" />
+                <i className="minus far fa-minus-square" />
+              </button>
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Sunday')}</span>
+              </div>
             </div>
             {showDay('Sunday') ? mealByDay('Sunday') : null}
           </div>
@@ -118,8 +120,10 @@ const FoodList = ({
                 <i className="plus far fa-plus-square" />
                 <i className="minus far fa-minus-square" />
               </button>
-              <div>Total Calories: </div>
-              {caloriesByDay('Saturday')}
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Saturday')}</span>
+              </div>
             </div>
             {showDay('Saturday') ? mealByDay('Saturday') : null}
           </div>
@@ -138,50 +142,58 @@ const FoodList = ({
             {showDay('Friday') ? mealByDay('Friday') : null}
           </div>
           <div>
-            <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Thursday', e)}>
-              <h2>Thursday</h2>
-              <i className="plus far fa-plus-square" />
-              <i className="minus far fa-minus-square" />
-            </button>
             <div>
-              <span>Total Calories: </span>
-              {caloriesByDay('Thursday')}
+              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Thursday', e)}>
+                <h2>Thursday</h2>
+                <i className="plus far fa-plus-square" />
+                <i className="minus far fa-minus-square" />
+              </button>
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Thursday')}</span>
+              </div>
             </div>
             {showDay('Thursday') ? mealByDay('Thursday') : null}
           </div>
           <div>
-            <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Wednesday', e)}>
-              <h2>Wednesday</h2>
-              <i className="plus far fa-plus-square" />
-              <i className="minus far fa-minus-square" />
-            </button>
             <div>
-              <span>Total Calories: </span>
-              {caloriesByDay('Wednesday')}
+              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Wednesday', e)}>
+                <h2>Wednesday</h2>
+                <i className="plus far fa-plus-square" />
+                <i className="minus far fa-minus-square" />
+              </button>
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Wednesday')}</span>
+              </div>
             </div>
             {showDay('Wednesday') ? mealByDay('Wednesday') : null}
           </div>
           <div>
-            <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Tuesday', e)}>
-              <h2>Tuesday</h2>
-              <i className="plus far fa-plus-square" />
-              <i className="minus far fa-minus-square" />
-            </button>
             <div>
-              <span>Total Calories: </span>
-              {caloriesByDay('Tuesday')}
+              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Tuesday', e)}>
+                <h2>Tuesday</h2>
+                <i className="plus far fa-plus-square" />
+                <i className="minus far fa-minus-square" />
+              </button>
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Tuesday')}</span>
+              </div>
             </div>
             {showDay('Tuesday') ? mealByDay('Tuesday') : null}
           </div>
           <div>
-            <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Monday', e)}>
-              <h2>Monday</h2>
-              <i className="plus far fa-plus-square" />
-              <i className="minus far fa-minus-square" />
-            </button>
             <div>
-              <span>Total Calories: </span>
-              {caloriesByDay('Monday')}
+              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Monday', e)}>
+                <h2>Monday</h2>
+                <i className="plus far fa-plus-square" />
+                <i className="minus far fa-minus-square" />
+              </button>
+              <div className="calories">
+                <span>Total Calories: </span>
+                <span>{caloriesByDay('Monday')}</span>
+              </div>
             </div>
             {showDay('Monday') ? mealByDay('Monday') : null}
           </div>
