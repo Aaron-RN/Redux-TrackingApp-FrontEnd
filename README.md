@@ -25,9 +25,9 @@ Web based Mobile Application using a [custom built API](https://github.com/Aaron
 
 Grab a clone of [this repository](https://github.com/Aaron-RN/Redux-TrackingApp-FrontEnd/tree/v1.0b) from Github
 
-### Setting up BackEnd
+### [Setting up BackEnd](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers)
 
-In order for this application to work you will also need to setup your backEnd server. You can do so following this readMe guide [here](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers).
+In order for this application to work you will also need to setup your backEnd server. You can do so following this readme guide [here](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers).
 
 After you have successfully setup your backEnd, you will need to change the URL the frontEnd connects to.
 
