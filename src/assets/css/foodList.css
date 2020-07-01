@@ -6,9 +6,23 @@
 .foodSection {
   font-size: 1em;
 }
-
+.foodSection > div > div:first-child {
+  background-color: #ffffff;
+  padding: 6px;
+  margin: 4px 0;
+}
+.foodSection .calories {
+  font-size: 0.9em;
+}
+.foodSection .calories > span:last-child {
+  font-weight: bold;
+}
 .showDayBtn {
+  display: block;
+  background-color: transparent;
   border: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 .showDayBtn > h2 {
   display: inline-block;

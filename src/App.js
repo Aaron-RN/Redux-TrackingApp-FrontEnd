@@ -81,7 +81,7 @@ const App = ({
         <div className="capitalize">
           <span>Hi </span>
           {user.username}
-          <button className="bareBtn" type="button" onClick={() => userLogout()}>
+          <button title="logout" className="bareBtn" type="button" onClick={() => userLogout()}>
             <i className="fas fa-sign-out-alt" />
           </button>
         </div>

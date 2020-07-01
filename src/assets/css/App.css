@@ -29,6 +29,7 @@ nav {
   overflow: hidden;
   z-index: 9;
 }
+.inline-block { display: inline-block; }
 
 :root {
   --bg-blue: #62B5E5;
