@@ -2,11 +2,10 @@
 ### Version 1.0 Beta
 The Front-end for a Calorie tracking mobile app that connects with a RESTful API through HTTP Requests
 
-Web based Mobile Application using [custom built API](https://github.com/Aaron-RN/ROR-TrackingApp-API) to gather and manipulate information related to various type of foods.
+Web based Mobile Application using a [custom built API](https://github.com/Aaron-RN/ROR-TrackingApp-API) to gather and manipulate information related to various type of foods.
 
 ![screenshot](./screenshot.jpg)
 ![screenshot](./screenshot2.jpg)
-![screenshot](./screenshot3.jpg)
 
 ## [Live Link](https://arn-tracking-app.herokuapp.com/login)
 
