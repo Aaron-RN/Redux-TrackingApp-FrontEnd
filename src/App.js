@@ -24,23 +24,13 @@ const App = ({
   const redirectToLogin = () => (
     <Redirect push to={{ pathname: '/login' }} />
   );
-  // const redirectToTrackIt = () => (
-  //   <Redirect push to={{ pathname: '/foods' }} />
-  // );
 
   useEffect(() => {
     userLoggedIn();
   }, [userLoggedIn]);
 
   if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
-  // if (user.logged_in && window.location.pathname === '/login') return redirectToTrackIt();
 
-  // const activeLink = path => {
-  //   if (window.location.pathname === path) {
-  //     return 'activeLink';
-  //   }
-  //   return '';
-  // };
   const nav = (
     <nav>
       <div className="horizontal-list">

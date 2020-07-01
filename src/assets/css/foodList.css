@@ -6,7 +6,12 @@
   padding: 0.5em;
   border-bottom: 1px solid #e4e4e4;
 }
-.foodHeader > h4 { padding: 0 4px; flex-basis: 84%; }
+
+.foodHeader > h4 {
+  padding: 0 4px;
+  flex-basis: 84%;
+}
+
 .dateBtn {
   flex-basis: 8%;
   font-weight: bolder;
@@ -14,32 +19,40 @@
   padding: 0;
   border: none;
 }
+
 .dateBtn > i {
   font-size: 1.2em;
   color: #888;
   vertical-align: middle;
 }
+
 .dateBtn:hover {
   background-color: aquamarine;
 }
+
 .foodSection {
   font-size: 1em;
 }
+
 .foodSection > div > div:first-child {
   background-color: #fcfcfc;
   border-bottom: 1px solid #eee;
   padding: 6px;
   margin: 6px 0;
 }
+
 .foodSection .calories {
   font-size: 0.9em;
 }
+
 .foodSection .servings > span:last-child {
   font-weight: bold;
 }
+
 .foodSection .calories > span:last-child {
   font-weight: bold;
 }
+
 .showDayBtn {
   display: block;
   background-color: transparent;
@@ -47,19 +60,24 @@
   margin-left: auto;
   margin-right: auto;
 }
+
 .showDayBtn > h2 {
   display: inline-block;
   padding-right: 4px;
 }
+
 .showDayBtn[data-dayDisplayed="+"] > .plus {
   display: inline-block;
 }
+
 .showDayBtn[data-dayDisplayed="+"] > .minus {
   display: none;
 }
+
 .showDayBtn[data-dayDisplayed="-"] > .plus {
   display: none;
 }
+
 .showDayBtn[data-dayDisplayed="-"] > .minus {
   display: inline-block;
 }

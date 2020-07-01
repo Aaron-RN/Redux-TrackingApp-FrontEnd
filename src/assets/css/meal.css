@@ -4,12 +4,15 @@
   font-weight: bold;
   padding: 8px;
 }
+
 #MealDetails .date {
   padding: 6px;
 }
+
 #MealDetails .servings {
   padding: 8px;
 }
+
 #MealDetails .mealDesc {
   display: inline-flex;
   align-items: center;
@@ -18,11 +21,13 @@
   margin: 4px;
   border: 1px solid #eee;
 }
+
 #MealDetails .mealDesc i {
   font-size: 1.6em;
   color: #ffe89e;
   padding: 0 4px 0 0;
 }
+
 #MealDetails .mealFlex {
   display: flex;
   flex-direction: column;
@@ -31,6 +36,7 @@
 #MealDetails .carbs {
   font-size: 0.8em;
 }
+
 #MealDetails .mealGrams {
   font-weight: bold;
   font-size: 1.2em;
@@ -39,16 +45,19 @@
 #MealDetails .mealCalories {
   padding: 8px;
 }
+
 #MealDetails .addNoteBtn {
   padding: 4px 8px;
   border: 1px solid #ddd;
   border-radius: 0.25em;
 }
+
 #MealDetails .addNoteBtn i {
   font-size: 1.6em;
   color: #888;
   padding: 0 0 0 6px;
 }
+
 #MealDetails .noteSection {
   display: inline-block;
   border-top: 2px solid #eee;
@@ -57,18 +66,22 @@
   margin-right: auto;
   min-width: 320px;
 }
+
 #MealDetails .noteHeader {
   font-weight: bold;
 }
+
 #MealDetails .noteContainer {
   padding: 4px 0;
 }
+
 #MealDetails .note {
   display: inline-block;
   background-color: #ffe89e;
   border-bottom: 1px solid #888;
   border-radius: 0.35em;
 }
+
 #MealDetails .note p {
   padding: 6px;
   margin: 0;
