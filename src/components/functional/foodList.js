@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Food from '../presentational/food';
 import { fetchFoods, removeFood } from '../../redux/actions/index';
+import getSelectedWeek from '../misc/getSelectedWeek';
 import '../../assets/css/foodList.css';
 
 const FoodList = ({
@@ -24,28 +25,11 @@ const FoodList = ({
     sunday: false,
   });
 
-  let weekDated = '';
   const useMountEffect = func => useEffect(func, []);
   const initialize = () => {
+    const currentWeek = getSelectedWeek();
+    setWeekSelected({ ...currentWeek });
     const todaysDate = new Date();
-    const weekStart = new Date();
-    const weekEnd = new Date();
-    weekStart.setFullYear(todaysDate.getFullYear());
-    weekStart.setMonth(todaysDate.getMonth());
-    weekStart.setDate(todaysDate.getDate() - todaysDate.getDay());
-    weekEnd.setFullYear(weekStart.getFullYear());
-    weekEnd.setMonth(weekStart.getMonth());
-    weekEnd.setDate(weekStart.getDate() + 6);
-    weekDated = `${weekStart.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-    const dates = [];
-    const o = weekEnd.getDate();
-    for (let i = weekStart.getDate(); i !== o + 1; i += 1) {
-      if (i > 31) i = 1;
-      dates.push(i);
-    }
-    setWeekSelected({
-      text: weekDated, startDate: weekStart, endDate: weekEnd, allDates: dates,
-    });
     const todaysDay = todaysDate.toLocaleDateString('en-US', { weekday: 'long' });
     setdaysDisplayed({ ...daysDisplayed, [todaysDay.toLowerCase()]: true });
     fetchFoods();
@@ -55,44 +39,12 @@ const FoodList = ({
   const mealsContainer = React.useRef(null);
 
   const previousWeek = () => {
-    const startingDay = new Date();
-    const endingDay = new Date();
-    startingDay.setFullYear(weekSelected.startDate.getFullYear());
-    startingDay.setMonth(weekSelected.startDate.getMonth());
-    startingDay.setDate(weekSelected.startDate.getDate() - 7);
-    endingDay.setFullYear(weekSelected.startDate.getFullYear());
-    endingDay.setMonth(weekSelected.startDate.getMonth());
-    endingDay.setDate(weekSelected.startDate.getDate() - 1);
-    const lastWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-    const dates = [];
-    const o = endingDay.getDate();
-    for (let i = startingDay.getDate(); i !== o + 1; i += 1) {
-      if (i > 31) i = 1;
-      dates.push(i);
-    }
-    setWeekSelected({
-      text: lastWeek, startDate: startingDay, endDate: endingDay, allDates: dates,
-    });
+    const currentWeek = getSelectedWeek(-1, weekSelected);
+    setWeekSelected({ ...currentWeek });
   };
   const nextWeek = () => {
-    const startingDay = new Date();
-    const endingDay = new Date();
-    startingDay.setFullYear(weekSelected.endDate.getFullYear());
-    startingDay.setMonth(weekSelected.endDate.getMonth());
-    startingDay.setDate(weekSelected.endDate.getDate() + 1);
-    endingDay.setFullYear(weekSelected.endDate.getFullYear());
-    endingDay.setMonth(weekSelected.endDate.getMonth());
-    endingDay.setDate(weekSelected.endDate.getDate() + 7);
-    const lastWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-    const dates = [];
-    const o = endingDay.getDate();
-    for (let i = startingDay.getDate(); i !== o + 1; i += 1) {
-      if (i > 31) i = 1;
-      dates.push(i);
-    }
-    setWeekSelected({
-      text: lastWeek, startDate: startingDay, endDate: endingDay, allDates: dates,
-    });
+    const currentWeek = getSelectedWeek(1, weekSelected);
+    setWeekSelected({ ...currentWeek });
   };
   const toggleDay = (day, e) => {
     setdaysDisplayed({
