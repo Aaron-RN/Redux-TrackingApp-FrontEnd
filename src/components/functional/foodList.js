@@ -30,7 +30,11 @@ const FoodList = ({
     const todaysDate = new Date();
     const weekStart = new Date();
     const weekEnd = new Date();
+    weekStart.setFullYear(todaysDate.getFullYear());
+    weekStart.setMonth(todaysDate.getMonth());
     weekStart.setDate(todaysDate.getDate() - todaysDate.getDay());
+    weekEnd.setFullYear(weekStart.getFullYear());
+    weekEnd.setMonth(weekStart.getMonth());
     weekEnd.setDate(weekStart.getDate() + 6);
     weekDated = `${weekStart.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
     const dates = [];
@@ -50,6 +54,46 @@ const FoodList = ({
 
   const mealsContainer = React.useRef(null);
 
+  const previousWeek = () => {
+    const startingDay = new Date();
+    const endingDay = new Date();
+    startingDay.setFullYear(weekSelected.startDate.getFullYear());
+    startingDay.setMonth(weekSelected.startDate.getMonth());
+    startingDay.setDate(weekSelected.startDate.getDate() - 7);
+    endingDay.setFullYear(weekSelected.startDate.getFullYear());
+    endingDay.setMonth(weekSelected.startDate.getMonth());
+    endingDay.setDate(weekSelected.startDate.getDate() - 1);
+    const lastWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+    const dates = [];
+    const o = endingDay.getDate();
+    for (let i = startingDay.getDate(); i !== o + 1; i += 1) {
+      if (i > 31) i = 1;
+      dates.push(i);
+    }
+    setWeekSelected({
+      text: lastWeek, startDate: startingDay, endDate: endingDay, allDates: dates,
+    });
+  };
+  const nextWeek = () => {
+    const startingDay = new Date();
+    const endingDay = new Date();
+    startingDay.setFullYear(weekSelected.endDate.getFullYear());
+    startingDay.setMonth(weekSelected.endDate.getMonth());
+    startingDay.setDate(weekSelected.endDate.getDate() + 1);
+    endingDay.setFullYear(weekSelected.endDate.getFullYear());
+    endingDay.setMonth(weekSelected.endDate.getMonth());
+    endingDay.setDate(weekSelected.endDate.getDate() + 7);
+    const lastWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+    const dates = [];
+    const o = endingDay.getDate();
+    for (let i = startingDay.getDate(); i !== o + 1; i += 1) {
+      if (i > 31) i = 1;
+      dates.push(i);
+    }
+    setWeekSelected({
+      text: lastWeek, startDate: startingDay, endDate: endingDay, allDates: dates,
+    });
+  };
   const toggleDay = (day, e) => {
     setdaysDisplayed({
       ...daysDisplayed,
@@ -108,7 +152,13 @@ const FoodList = ({
     : (
       <div className="max-height-hidden">
         <header className="foodHeader">
+          <button className="dateBtn" type="button" onClick={previousWeek}>
+            <i className="fas fa-chevron-circle-left" />
+          </button>
           <h4>{weekSelected.text}</h4>
+          <button className="dateBtn" type="button" onClick={nextWeek}>
+            <i className="fas fa-chevron-circle-right" />
+          </button>
         </header>
         <div ref={mealsContainer} className="foodSection p-t p-b max-height-auto">
           <div>

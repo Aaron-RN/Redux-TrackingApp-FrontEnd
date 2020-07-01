@@ -1,7 +1,26 @@
 .foodHeader {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
   background-color: #fff;
   padding: 0.5em;
   border-bottom: 1px solid #e4e4e4;
+}
+.foodHeader > h4 { padding: 0 4px; flex-basis: 84%; }
+.dateBtn {
+  flex-basis: 8%;
+  font-weight: bolder;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+.dateBtn > i {
+  font-size: 1.2em;
+  color: #888;
+  vertical-align: middle;
+}
+.dateBtn:hover {
+  background-color: aquamarine;
 }
 .foodSection {
   font-size: 1em;
