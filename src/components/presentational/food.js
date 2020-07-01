@@ -19,11 +19,11 @@ const Food = ({ meal }) => {
         <h4>{name}</h4>
         <div className="servings">
           <span>Servings: </span>
-          {servings_consumed}
+          <span>{servings_consumed}</span>
         </div>
         <div className="calories">
           <span>Calories: </span>
-          {totalCalories}
+          <span>{totalCalories}</span>
         </div>
       </Link>
     </div>
