@@ -12,6 +12,7 @@ import LoginPage from './components/functional/loginPage';
 import AddFoodPage from './components/functional/addFood';
 import FoodListPage from './components/functional/foodList';
 import MealDetailsPage from './components/functional/mealDetails';
+import MorePage from './components/functional/more';
 import Modal from './components/functional/modal';
 import { userLoggedIn, userLogout } from './redux/actions/index';
 import './assets/css/App.css';
@@ -33,12 +34,12 @@ const App = ({
   if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
   // if (user.logged_in && window.location.pathname === '/login') return redirectToTrackIt();
 
-  const activeLink = path => {
-    if (window.location.pathname === path) {
-      return 'activeLink';
-    }
-    return '';
-  };
+  // const activeLink = path => {
+  //   if (window.location.pathname === path) {
+  //     return 'activeLink';
+  //   }
+  //   return '';
+  // };
   const nav = (
     <nav>
       <div className="horizontal-list">
@@ -60,7 +61,7 @@ const App = ({
             <span>Progress</span>
           </div>
         </Link>
-        <Link to={{ pathname: '/settings' }}>
+        <Link to={{ pathname: '/more' }}>
           <i className="fas fa-ellipsis-h" />
           <span>More</span>
         </Link>
@@ -93,6 +94,7 @@ const App = ({
           <Route exact path="/addFood" render={props => <AddFoodPage {...props} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegistrationPage} />
+          <Route exact path="/more" render={() => <MorePage userLogout={userLogout} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/" component={LoginPage} />
         </Switch>
         {showModal}

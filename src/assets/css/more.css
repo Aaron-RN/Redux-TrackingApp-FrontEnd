@@ -1,0 +1,45 @@
+#More { text-align: left; }
+#More .userProfile {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+#More .profileHeader {
+  padding: 8px 1em;
+  background-color: #fff;
+}
+#More .userProfile i {
+  font-size: 1.8em;
+  padding: 12px 14px;
+  border: 2px solid var(--bg-main);
+  border-radius: 1em;
+}
+
+#More .userInfo {
+  display: inline-block;
+  text-align: left;
+  padding: 4px 6px;
+}
+#More .userInfo > div:first-child {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+#More .userInfo > div:last-child {
+  font-size: 0.85em;
+  color: var(--bg-main-1);
+}
+
+.settingsList {
+  color: #777;
+  padding: 1em 0;
+}
+.settingsList > * {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  padding:12px;
+  border: 1px solid #ebebeb;
+}
