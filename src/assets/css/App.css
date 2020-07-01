@@ -47,9 +47,9 @@ nav {
 .overflow-auto { overflow: auto; }
 .p-t { padding-top: 1em; }
 .p-b { padding-bottom: 80px; }
-.max-height-hidden { height: 100%; overflow-y: hidden;}
-.height-main-hidden { height: 76%; overflow-y: auto;}
-.max-height-auto { height: 100%; overflow-y: auto;}
+.max-height-hidden { height: 100%; overflow-y: hidden; }
+.height-main-hidden { height: 76%; overflow-y: auto; overflow-x: hidden; }
+.max-height-auto { height: 100%; overflow-y: auto; }
 .height-100vh { height: 100vh; }
 
 .App {
@@ -80,7 +80,7 @@ nav {
 .horizontal-list {
   display: flex;
   align-items: center;
-  font-size: 0.6em;
+  font-size: 0.64em;
   min-height: 56px;
   max-width: 1080px;
   margin-left: auto;
@@ -129,7 +129,11 @@ nav {
   z-index: 9;
   overflow: auto;
 }
-
+.modalForm {
+  padding: 4px 1em !important;
+  min-width: 60vw;
+  max-width: 320px;
+}
 .formTitle {
   position: relative;
   background-color: #fff;
@@ -148,6 +152,14 @@ nav {
   box-shadow: 0px 4px 8px #e4e4e4;
   z-index: 1;
 }
+.form textarea {
+  display: block;
+  padding: 6px;
+  border: 1px solid #e4e4e4;
+  width: 70vw;
+  max-width: 320px;
+  margin: auto;
+}
 .form input {
   display: block;
   padding: 6px;
@@ -160,7 +172,7 @@ nav {
   outline: 2px solid var(--bg-main);
 }
 .form input::placeholder {
-  font-size: 0.8em;
+  font-size: 0.85em;
   font-family: 'HelveticaNeue', sans-serif;
 }
 .form button {
@@ -178,7 +190,7 @@ nav {
   display: block;
   text-decoration: none;
   color: #54b4b4;
-  font-size: 0.6em;
+  font-size: 0.7em;
   margin-top: 6px;
 }
 
@@ -190,25 +202,15 @@ nav {
   content: '• ';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Medium devices (landscape tablets, 720px - 1024px) */
+@media only screen and (min-width: 721px) and (max-width: 1023px) {
+  .horizontal-list { font-size: 0.8em; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+/* Large devices (laptops/desktops, 1024px and up) */
+@media only screen and (min-width: 1024px) {
+  .horizontal-list { font-size: 0.9em; }
+  .height-main-hidden { height: 82%; }
 }
 
 /* ScrollBar */

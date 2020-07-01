@@ -41,7 +41,7 @@
 }
 #MealDetails .addNoteBtn {
   padding: 4px 8px;
-  border: 1px solid #888;
+  border: 1px solid #ddd;
   border-radius: 0.25em;
 }
 #MealDetails .addNoteBtn i {

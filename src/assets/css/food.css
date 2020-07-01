@@ -10,3 +10,8 @@
   color: #616772;
   text-decoration: none;
 }
+
+.foodItem i {
+  font-size: 1.6em;
+  color: #d6b368;
+}

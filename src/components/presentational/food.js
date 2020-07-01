@@ -17,6 +17,7 @@ const Food = ({ meal }) => {
     <div className="foodItem">
       <Link to={{ pathname: `/foods/${meal.id}` }} className="foodLink">
         <h4>{name}</h4>
+        <i className="fas fa-utensils" />
         <div className="servings">
           <span>Servings: </span>
           <span>{servings_consumed}</span>

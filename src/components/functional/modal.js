@@ -28,12 +28,9 @@ const Modal = ({
   };
   if (modalType === 'addNote') {
     modalDisplay = (
-      <div className="modalForm">
+      <div className="form modalForm">
         <button type="button" onClick={closeModal}>X</button>
-        <div>
-          <span>Food Selected: </span>
-          {selectedFood.name}
-        </div>
+        <h4>Add Note</h4>
         <form
           onSubmit={e => {
             e.preventDefault(); addNote(selectedFood.id, note); closeModal();
@@ -56,12 +53,9 @@ const Modal = ({
   }
   if (modalType === 'editNote') {
     modalDisplay = (
-      <div className="modalForm">
+      <div className="form modalForm">
         <button type="button" onClick={closeModal}>X</button>
-        <div>
-          <span>Food Selected: </span>
-          {selectedFood.name}
-        </div>
+        <h4>Edit Note</h4>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -86,7 +80,7 @@ const Modal = ({
   }
   if (modalType === 'deleteFood') {
     modalDisplay = (
-      <div className="modalForm">
+      <div className="form modalForm">
         <button type="button" onClick={closeModal}>X</button>
         <h4>
           {selectedFood.name}
@@ -98,10 +92,10 @@ const Modal = ({
   }
   if (modalType === 'deleteNote') {
     modalDisplay = (
-      <div className="modalForm">
+      <div className="form modalForm">
         <button type="button" onClick={closeModal}>X</button>
         <h4>
-          {info.body}
+          {`${info.body.substring(0, 10)}...`}
         </h4>
         <p>Are you sure you want to remove this note?</p>
         <button type="button" onClick={() => { removeNote(selectedFood.id, info.id); closeModal(); }}>Remove Note?</button>

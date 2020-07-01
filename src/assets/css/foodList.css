@@ -26,7 +26,8 @@
   font-size: 1em;
 }
 .foodSection > div > div:first-child {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
+  border-bottom: 1px solid #eee;
   padding: 6px;
   margin: 6px 0;
 }
