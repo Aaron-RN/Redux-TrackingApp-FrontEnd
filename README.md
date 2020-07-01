@@ -31,9 +31,9 @@ In order for this application to work you will also need to setup your backEnd s
 
 After you have successfully setup your backEnd, you will need to change the URL the frontEnd connects to.
 
-1. Navigate to the directory of this cloned repository
+1. Navigate to your local directory of this cloned repository
 2. Navigate to the src/redux/actions folder and open the index.js file
-1. On line 3 where you would see const ```const URL = 'https://arn-tracking-app-api.herokuapp.com/';```, replace ```'https://arn-tracking-app-api.herokuapp.com/'``` with the url of your backEnd server that you would have setup following the ["Setting up The BackEnd"](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers) Guide
+3. On line 3 where you would see const ```const URL = 'https://arn-tracking-app-api.herokuapp.com/';```, replace ```'https://arn-tracking-app-api.herokuapp.com/'``` with the url of your backEnd server that you would have setup following the ["Setting up The BackEnd"](https://github.com/Aaron-RN/ROR-TrackingApp-API/tree/models-controllers) Guide
 
 ### Install Dependencies
 
