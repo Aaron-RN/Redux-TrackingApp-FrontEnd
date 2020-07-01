@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Food from '../presentational/food';
 import { fetchFoods, removeFood } from '../../redux/actions/index';
 import getSelectedWeek from '../misc/getSelectedWeek';
+import calculateCalories from '../misc/calorieCalculator';
 import '../../assets/css/foodList.css';
 
 const FoodList = ({
@@ -88,10 +89,7 @@ const FoodList = ({
 
       const day = date.toLocaleDateString('en-US', { weekday: 'long' });
 
-      const carbCalories = carbs * 4;
-      const fatCalories = fats * 9;
-      const proteinCalories = proteins * 4;
-      const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
+      const totalCalories = calculateCalories(servings_consumed, carbs, fats, proteins);
 
       if (day === dayChosen) {
         CaloriesForMeals += totalCalories;

@@ -12,6 +12,7 @@ import LoginPage from './components/functional/loginPage';
 import AddFoodPage from './components/functional/addFood';
 import FoodListPage from './components/functional/foodList';
 import MealDetailsPage from './components/functional/mealDetails';
+import ProgressPage from './components/functional/progress';
 import MorePage from './components/functional/more';
 import Modal from './components/functional/modal';
 import { userLoggedIn, userLogout } from './redux/actions/index';
@@ -55,7 +56,7 @@ const App = ({
             <span>Track.it</span>
           </div>
         </Link>
-        <Link to={{ pathname: '/register' }}>
+        <Link to={{ pathname: '/progress' }}>
           <div>
             <i className="fas fa-chart-pie" />
             <span>Progress</span>
@@ -82,7 +83,7 @@ const App = ({
         <div className="capitalize">
           <span>Hi </span>
           {user.username}
-          <button title="logout" className="bareBtn" type="button" onClick={() => userLogout()}>
+          <button title="logout" className="bareBtn" type="button" onClick={userLogout}>
             <i className="fas fa-sign-out-alt" />
           </button>
         </div>
@@ -94,6 +95,7 @@ const App = ({
           <Route exact path="/addFood" render={props => <AddFoodPage {...props} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegistrationPage} />
+          <Route exact path="/progress" render={() => <ProgressPage redirectToLogin={redirectToLogin} />} />
           <Route exact path="/more" render={() => <MorePage userLogout={userLogout} redirectToLogin={redirectToLogin} />} />
           <Route exact path="/" component={LoginPage} />
         </Switch>

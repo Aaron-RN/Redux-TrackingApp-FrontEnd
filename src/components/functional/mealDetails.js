@@ -16,6 +16,7 @@ const MealDetails = ({
     /* eslint-disable camelcase */
     name, date_consumed, servings_consumed, carbs, fats, proteins,
   } = selectedFood;
+  const dateConsumed = new Date(date_consumed);
   const carbCalories = carbs * 4;
   const fatCalories = fats * 9;
   const proteinCalories = proteins * 4;
@@ -23,51 +24,64 @@ const MealDetails = ({
   const { logged_in } = user;
   return !logged_in ? redirectToLogin()
     : (
-      <div>
-        <div>{name}</div>
-        <button type="button" onClick={() => openModal('deleteFood')}>Remove Food</button>
-        <div>{date_consumed}</div>
-        <div>
+      <div id="MealDetails">
+        <div className="name">{name}</div>
+        <button className="bareBtn" type="button" onClick={() => openModal('deleteFood')}>
+          <i className="fas fa-trash-alt" />
+        </button>
+        <div className="date">
+          {dateConsumed.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </div>
+        <div className="servings">
           <span>Servings: </span>
-          {servings_consumed}
+          <span className="mealGrams">{servings_consumed}</span>
         </div>
-        <div>
-          {carbs}
-          <span> g</span>
-          <div>
-            (
-            {carbCalories}
-            cal)
+        <div className="mealDesc">
+          <i className="fas fa-bread-slice" />
+          <div className="mealFlex">
+            <div className="carbs">Carbs</div>
+            <div>
+              <span className="mealGrams">{carbs.toString()}</span>
+              <span> g</span>
+            </div>
           </div>
         </div>
-        <div>
-          {fats}
-          <span> g</span>
-          <div>
-            (
-            {fatCalories}
-            cal)
+        <div className="mealDesc">
+          <i className="fas fa-cloud-meatball" />
+          <div className="mealFlex">
+            <div className="carbs">Fats</div>
+            <div>
+              <span className="mealGrams">{fats.toString()}</span>
+              <span> g</span>
+            </div>
           </div>
         </div>
-        <div>
-          {proteins}
-          <span> g</span>
-          <div>
-            (
-            {proteinCalories}
-            cal)
+        <div className="mealDesc">
+          <i className="fas fa-egg" />
+          <div className="mealFlex">
+            <div className="carbs">Proteins</div>
+            <div>
+              <span className="mealGrams">{proteins.toString()}</span>
+              <span> g</span>
+            </div>
           </div>
         </div>
-        <div>
+        <div className="mealCalories">
           <span>Total Calories: </span>
-          {totalCalories}
+          <span className="mealGrams">{totalCalories.toString()}</span>
         </div>
+        <button className="bareBtn addNoteBtn" type="button" onClick={() => openModal('addNote')}>
+          Add Note
+          <i className="fas fa-comment-dots" />
+        </button>
         <div>
-          {selectedFood.notes.map(note => (
-            <Note key={note.id + name} note={note} openModal={openModal} />
-          ))}
+          <div className="noteSection">
+            <header className="noteHeader">Notes:</header>
+            {selectedFood.notes.map(note => (
+              <Note key={note.id + name} note={note} openModal={openModal} />
+            ))}
+          </div>
         </div>
-        <button type="button" onClick={() => openModal('addNote')}>Add Note</button>
       </div>
     );
 };

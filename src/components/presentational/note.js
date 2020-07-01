@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import '../../assets/css/note.css';
 
 const Note = ({
   note, openModal,
 }) => (
-  <div>
-    {note.body}
-    <button type="button" onClick={() => openModal('editNote', note)}>Edit Note</button>
-    <button type="button" onClick={() => openModal('deleteNote', note)}>Remove Note</button>
+  <div className="noteContainer">
+    <div className="note">
+      <p>{note.body}</p>
+      <button className="bareBtn" type="button" onClick={() => openModal('editNote', note)}>
+        <i className="fas fa-edit" />
+      </button>
+      <button className="bareBtn" type="button" onClick={() => openModal('deleteNote', note)}>
+        <i className="fas fa-trash-alt" />
+      </button>
+    </div>
   </div>
 );
 
