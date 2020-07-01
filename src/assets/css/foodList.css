@@ -9,10 +9,13 @@
 .foodSection > div > div:first-child {
   background-color: #ffffff;
   padding: 6px;
-  margin: 4px 0;
+  margin: 6px 0;
 }
 .foodSection .calories {
   font-size: 0.9em;
+}
+.foodSection .servings > span:last-child {
+  font-weight: bold;
 }
 .foodSection .calories > span:last-child {
   font-weight: bold;
