@@ -2,15 +2,15 @@
 ### Version 1.0 Beta
 The Front-end for a Calorie tracking mobile app that connects with a RESTful API through HTTP Requests
 
-Web based Mobile Application using a [custom built API](https://github.com/Aaron-RN/ROR-TrackingApp-API) to gather and manipulate information related to various type of foods.
+Web-based Mobile Application using a [custom built API](https://github.com/Aaron-RN/ROR-TrackingApp-API) to gather and manipulate information related to various type of foods.
 
 ## Features
 ### Calorie Tracker (carbs, fats, proteins)
 - After Logging in a User is able to add various meals to their tracker. 
 - The meals added to the tracker will be saved and stored in the back-end server's database.  
-- The User is then able to track the amount of calories (carbohydrates, fats and proteins) they've eaten.
+- The User is then able to track the number of calories (carbohydrates, fats, and proteins) they've eaten.
 ### Track calories on a weekly basis
-- The calories eaten is stored and sorted on a weekly basis.
+- The calories eaten are stored and sorted on a weekly basis.
 ### Personalized Notes
 - A User can also remove Food items as well as add personalized notes to each food item.
 
