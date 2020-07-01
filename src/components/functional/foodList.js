@@ -33,7 +33,6 @@ const FoodList = ({
     weekEnd.setDate(weekStart.getDate() + 6);
     weekDated = `${weekStart.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
     setWeekSelected({ text: weekDated, startDate: weekStart, endDate: weekEnd });
-    console.log(weekDated);
     const todaysDay = todaysDate.toLocaleDateString('en-US', { weekday: 'long' });
     setdaysDisplayed({ ...daysDisplayed, [todaysDay.toLowerCase()]: true });
     fetchFoods();

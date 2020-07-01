@@ -21,7 +21,6 @@ const initialState = {
   },
   modal: { isOpen: false, modalType: '' },
   status: { isLoading: false, errors: [] },
-  filter: 'All',
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));

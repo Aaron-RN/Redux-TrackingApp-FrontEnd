@@ -13,7 +13,6 @@ const FETCH_FOOD = 'FETCH_FOOD';
 const SET_MODAL = 'SET_MODAL';
 const OPEN_MODAL = 'OPEN_MODAL';
 const CLOSE_MODAL = 'CLOSE_MODAL';
-const CHANGE_FILTER = 'CHANGE_FILTER';
 
 const fetchRequest = () => ({
   type: FETCH_REQUEST,
@@ -52,11 +51,6 @@ const fetchFoodListSuccess = foods => ({
 const fetchFoodSuccess = food => ({
   type: FETCH_FOOD,
   response: food,
-});
-
-const changeFilter = genre => ({
-  type: CHANGE_FILTER,
-  response: genre,
 });
 
 const openModal = (modalType, info) => ({
@@ -240,11 +234,11 @@ const removeNote = (foodID, noteID) => dispatch => {
 };
 
 export {
-  CHANGE_FILTER, FETCH_FOODLIST, FETCH_FOOD,
+  FETCH_FOODLIST, FETCH_FOOD,
   USER_LOGIN, USER_LOGOUT, USER_REGISTER,
   FETCH_REQUEST, FETCH_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE,
   SET_MODAL, OPEN_MODAL, CLOSE_MODAL,
-  registerNewUser, userLogin, userLoggedIn, userLogout, changeFilter,
+  registerNewUser, userLogin, userLoggedIn, userLogout,
   fetchFoods, fetchFood, addFood, removeFood, updateFood,
   addNote, removeNote, updateNote,
   openModal, closeModal,
