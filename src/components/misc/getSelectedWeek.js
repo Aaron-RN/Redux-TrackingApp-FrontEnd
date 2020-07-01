@@ -3,6 +3,8 @@ const getSelectedWeek = (selectWeek = 0, currentWeek) => {
   const endingDay = new Date();
   let selectedWeek;
   let dates = [];
+  let months = [];
+  let years = [];
   const fillDates = (endDate, startDate) => {
     const o = endDate;
     const newDates = [];
@@ -11,6 +13,18 @@ const getSelectedWeek = (selectWeek = 0, currentWeek) => {
       newDates.push(i);
     }
     dates = newDates;
+  };
+  const fillMonths = (endMonth, startMonth) => {
+    const newMonths = [];
+    newMonths.push(endMonth);
+    newMonths.push(startMonth);
+    months = newMonths;
+  };
+  const fillYears = (endYear, startYear) => {
+    const newYears = [];
+    newYears.push(endYear);
+    newYears.push(startYear);
+    years = newYears;
   };
   if (selectWeek === 0) {
     const todaysDate = new Date();
@@ -22,6 +36,8 @@ const getSelectedWeek = (selectWeek = 0, currentWeek) => {
     endingDay.setDate(startingDay.getDate() + 6);
     selectedWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
     fillDates(endingDay.getDate(), startingDay.getDate());
+    fillMonths(endingDay.getMonth(), startingDay.getMonth());
+    fillYears(endingDay.getFullYear(), startingDay.getFullYear());
   }
   if (selectWeek === -1) {
     startingDay.setFullYear(currentWeek.startDate.getFullYear());
@@ -32,6 +48,8 @@ const getSelectedWeek = (selectWeek = 0, currentWeek) => {
     endingDay.setDate(currentWeek.startDate.getDate() - 1);
     selectedWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
     fillDates(endingDay.getDate(), startingDay.getDate());
+    fillMonths(endingDay.getMonth(), startingDay.getMonth());
+    fillYears(endingDay.getFullYear(), startingDay.getFullYear());
   }
   if (selectWeek === 1) {
     startingDay.setFullYear(currentWeek.endDate.getFullYear());
@@ -42,10 +60,17 @@ const getSelectedWeek = (selectWeek = 0, currentWeek) => {
     endingDay.setDate(currentWeek.endDate.getDate() + 7);
     selectedWeek = `${startingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} - ${endingDay.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
     fillDates(endingDay.getDate(), startingDay.getDate());
+    fillMonths(endingDay.getMonth(), startingDay.getMonth());
+    fillYears(endingDay.getFullYear(), startingDay.getFullYear());
   }
 
   return {
-    text: selectedWeek, startDate: startingDay, endDate: endingDay, allDates: dates,
+    text: selectedWeek,
+    startDate: startingDay,
+    endDate: endingDay,
+    allDates: dates,
+    allMonths: months,
+    allYears: years,
   };
 };
 

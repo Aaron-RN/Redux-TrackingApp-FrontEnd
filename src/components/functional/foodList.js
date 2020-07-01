@@ -14,6 +14,8 @@ const FoodList = ({
     startDate: '',
     endDate: '',
     allDates: [],
+    allMonths: [],
+    allYears: [],
   });
   const [daysDisplayed, setdaysDisplayed] = useState({
     monday: false,
@@ -62,6 +64,8 @@ const FoodList = ({
     let date = new Date(meal.date_consumed);
     date = new Date(date.getTime() - date.getTimezoneOffset() * -60000);
     if (!weekSelected.allDates.find(elem => elem === date.getDate())) return null;
+    if (!weekSelected.allMonths.find(elem => elem === date.getMonth())) return null;
+    if (!weekSelected.allYears.find(elem => elem === date.getFullYear())) return null;
 
     const day = date.toLocaleDateString('en-US', { weekday: 'long' });
     if (day !== dayChosen) return null;
@@ -79,6 +83,8 @@ const FoodList = ({
       let date = new Date(date_consumed);
       date = new Date(date.getTime() - date.getTimezoneOffset() * -60000);
       if (!weekSelected.allDates.find(elem => elem === date.getDate())) return;
+      if (!weekSelected.allMonths.find(elem => elem === date.getMonth())) return;
+      if (!weekSelected.allYears.find(elem => elem === date.getFullYear())) return;
 
       const day = date.toLocaleDateString('en-US', { weekday: 'long' });
 
