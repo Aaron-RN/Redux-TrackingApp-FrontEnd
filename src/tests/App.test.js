@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import App from '../App';
@@ -24,42 +25,50 @@ const initialState = {
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
 // Tests related to all available react-router-dom links
-test('renders login link', () => {
+test('renders add calories link', () => {
   render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>,
   );
-  const linkElement = screen.getByText(/login/i);
+  const linkElement = screen.getByText(/add calories/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders registration link', () => {
+// test('renders track.it link', () => {
+//   render(
+//     <Router>
+//       <Provider store={store}>
+//         <App />
+//       </Provider>
+//     </Router>,
+//   );
+//   const linkElement = screen.getByText(/track/i);
+//   expect(linkElement).toBeInTheDocument();
+// });
+
+test('renders progress link', () => {
   render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>,
   );
-  const linkElement = screen.getByText(/register/i);
+  const linkElement = screen.getByText(/progress/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders add new food link', () => {
+test('renders more link', () => {
   render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>,
   );
-  const linkElement = screen.getByText(/add new food/i);
-  expect(linkElement).toBeInTheDocument();
-});
-
-test('renders food list link', () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-  );
-  const linkElement = screen.getByText(/food list/i);
+  const linkElement = screen.getByText(/more/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -29,8 +29,6 @@ const App = ({
     userLoggedIn();
   }, [userLoggedIn]);
 
-  if (!user.logged_in && window.location.pathname !== '/login') return redirectToLogin();
-
   const nav = (
     <nav>
       <div className="horizontal-list">
