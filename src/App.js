@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
 import NavBar from './components/presentational/navbar';
