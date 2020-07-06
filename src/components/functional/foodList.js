@@ -10,7 +10,7 @@ import calculateCalories from '../misc/calorieCalculator';
 import '../../assets/css/foodList.css';
 
 const FoodList = ({
-  status, user, foods, fetchFoods, removeFood, redirectTo,
+  status, user, foods, fetchFoods, redirectTo,
 }) => {
   const [weekSelected, setWeekSelected] = useState({
     text: '',
