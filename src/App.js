@@ -21,8 +21,8 @@ import './assets/css/App.css';
 const App = ({
   modal, user, userLoggedIn, userLogout,
 }) => {
-  const redirectToLogin = () => (
-    <Redirect push to={{ pathname: '/login' }} />
+  const redirectTo = path => (
+    <Redirect push to={{ pathname: path }} />
   );
 
   useEffect(() => {
@@ -78,14 +78,14 @@ const App = ({
       </header>
       <main className="height-main-hidden">
         <Switch>
-          <Route exact path="/foods/:id" render={props => <MealDetailsPage match={props.match} redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/foods" render={props => <FoodListPage {...props} redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/addFood" render={props => <AddFoodPage {...props} redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/foods/:id" render={props => <MealDetailsPage match={props.match} redirectTo={redirectTo} />} />
+          <Route exact path="/foods" render={props => <FoodListPage {...props} redirectTo={redirectTo} />} />
+          <Route exact path="/addFood" render={props => <AddFoodPage {...props} redirectTo={redirectTo} />} />
+          <Route exact path="/login" render={() => <LoginPage redirectTo={redirectTo} />} />
           <Route exact path="/register" component={RegistrationPage} />
-          <Route exact path="/progress" render={() => <ProgressPage redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/more" render={() => <MorePage userLogout={userLogout} redirectToLogin={redirectToLogin} />} />
-          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/progress" render={() => <ProgressPage redirectTo={redirectTo} />} />
+          <Route exact path="/more" render={() => <MorePage userLogout={userLogout} redirectTo={redirectTo} />} />
+          <Route exact path="/" render={() => <LoginPage redirectTo={redirectTo} />} />
         </Switch>
         {showModal}
       </main>

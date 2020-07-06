@@ -8,7 +8,7 @@ import calculateCalories from '../misc/calorieCalculator';
 import '../../assets/css/foodList.css';
 
 const FoodList = ({
-  status, user, foods, fetchFoods, removeFood, redirectToLogin,
+  status, user, foods, fetchFoods, removeFood, redirectTo,
 }) => {
   const [weekSelected, setWeekSelected] = useState({
     text: '',
@@ -219,7 +219,7 @@ const FoodList = ({
       </div>
     );
   const { logged_in } = user;
-  return logged_in ? renderMain : redirectToLogin();
+  return logged_in ? renderMain : redirectTo('/login');
 };
 
 FoodList.propTypes = {
@@ -227,7 +227,7 @@ FoodList.propTypes = {
   status: PropTypes.instanceOf(Object).isRequired,
   foods: PropTypes.instanceOf(Object).isRequired,
   fetchFoods: PropTypes.func.isRequired,
-  redirectToLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

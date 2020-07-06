@@ -6,7 +6,7 @@ import { fetchFood, openModal } from '../../redux/actions/index';
 import '../../assets/css/meal.css';
 
 const MealDetails = ({
-  match, user, selectedFood, fetchFood, openModal, redirectToLogin,
+  match, user, selectedFood, fetchFood, openModal, redirectTo,
 }) => {
   useEffect(() => {
     fetchFood(match.params.id);
@@ -22,7 +22,7 @@ const MealDetails = ({
   const proteinCalories = proteins * 4;
   const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
   const { logged_in } = user;
-  return !logged_in ? redirectToLogin()
+  return !logged_in ? redirectTo('/login')
     : (
       <div id="MealDetails">
         <div className="name">{name}</div>
@@ -102,7 +102,7 @@ MealDetails.propTypes = {
   }).isRequired,
   openModal: PropTypes.func.isRequired,
   fetchFood: PropTypes.func.isRequired,
-  redirectToLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

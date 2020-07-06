@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../../assets/css/more.css';
 
-const More = ({ user, userLogout, redirectToLogin }) => {
+const More = ({ user, userLogout, redirectTo }) => {
   const renderMain = (
     <div id="More">
       <header className="profileHeader">
@@ -37,13 +37,13 @@ const More = ({ user, userLogout, redirectToLogin }) => {
   );
   /* eslint-disable camelcase */
   const { logged_in } = user;
-  return logged_in ? renderMain : redirectToLogin();
+  return logged_in ? renderMain : redirectTo('/login');
   /* eslint-enable camelcase */
 };
 More.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
   userLogout: PropTypes.func.isRequired,
-  redirectToLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

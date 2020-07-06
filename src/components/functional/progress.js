@@ -6,7 +6,7 @@ import { fetchFoods } from '../../redux/actions';
 import calculateCalories from '../misc/calorieCalculator';
 
 const Progress = ({
-  user, foods, fetchFoods, redirectToLogin,
+  user, foods, fetchFoods, redirectTo,
 }) => {
   useEffect(() => {
     fetchFoods();
@@ -51,13 +51,13 @@ const Progress = ({
   );
   /* eslint-disable camelcase */
   const { logged_in } = user;
-  return logged_in ? renderMain : redirectToLogin();
+  return logged_in ? renderMain : redirectTo('/login');
   /* eslint-enable camelcase */
 };
 Progress.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
   foods: PropTypes.instanceOf(Object).isRequired,
-  redirectToLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
   fetchFoods: PropTypes.func.isRequired,
 };
 

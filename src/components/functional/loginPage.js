@@ -99,16 +99,24 @@ class LoginForm extends React.Component {
           </div>
         </div>
       );
-    return renderMain;
+    const { user } = this.props;
+    /* eslint-disable camelcase */
+    const { logged_in } = user;
+    const { redirectTo } = this.props;
+    return !logged_in ? renderMain : redirectTo('/foods');
+    /* eslint-enable camelcase */
   }
 }
 
 LoginForm.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   userLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  user: state.user,
   status: state.status,
 });
 

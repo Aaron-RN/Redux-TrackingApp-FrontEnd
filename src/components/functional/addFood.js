@@ -154,10 +154,10 @@ class FoodForm extends React.Component {
           </div>
         </div>
       );
-    const { user, redirectToLogin } = this.props;
+    const { user, redirectTo } = this.props;
     /* eslint-disable camelcase */
     const { logged_in } = user;
-    return logged_in ? renderMain : redirectToLogin();
+    return logged_in ? renderMain : redirectTo('/login');
     /* eslint-enable camelcase */
   }
 }
@@ -166,7 +166,7 @@ FoodForm.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   addFood: PropTypes.func.isRequired,
-  redirectToLogin: PropTypes.func.isRequired,
+  redirectTo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
