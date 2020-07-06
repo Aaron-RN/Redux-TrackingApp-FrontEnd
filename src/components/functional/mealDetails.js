@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loading from '../presentational/loading';
 import Note from '../presentational/note';
+import calorieCalculator from '../misc/calorieCalculator';
 import { fetchFood, openModal } from '../../redux/actions/index';
 import '../../assets/css/meal.css';
 
 const MealDetails = ({
-  match, user, selectedFood, fetchFood, openModal, redirectTo,
+  match, user, selectedFood, status, fetchFood, openModal, redirectTo,
 }) => {
   useEffect(() => {
     fetchFood(match.params.id);
@@ -17,12 +19,10 @@ const MealDetails = ({
     name, date_consumed, servings_consumed, carbs, fats, proteins,
   } = selectedFood;
   const dateConsumed = new Date(date_consumed);
-  const carbCalories = carbs * 4;
-  const fatCalories = fats * 9;
-  const proteinCalories = proteins * 4;
-  const totalCalories = (carbCalories + fatCalories + proteinCalories) * servings_consumed;
-  const { logged_in } = user;
-  return !logged_in ? redirectTo('/login')
+  const totalCalories = calorieCalculator(servings_consumed, carbs, fats, proteins);
+  const { isLoading } = status;
+  const renderMain = isLoading
+    ? (<Loading />)
     : (
       <div id="MealDetails">
         <div className="name">{name}</div>
@@ -84,6 +84,9 @@ const MealDetails = ({
         </div>
       </div>
     );
+  const { logged_in } = user;
+  return !logged_in ? redirectTo('/login')
+    : renderMain;
 };
 /* eslint-enable camelcase */
 
@@ -100,6 +103,7 @@ MealDetails.propTypes = {
     proteins: PropTypes.number,
     notes: PropTypes.instanceOf(Array),
   }).isRequired,
+  status: PropTypes.instanceOf(Object).isRequired,
   openModal: PropTypes.func.isRequired,
   fetchFood: PropTypes.func.isRequired,
   redirectTo: PropTypes.func.isRequired,
@@ -108,6 +112,7 @@ MealDetails.propTypes = {
 const mapStateToProps = state => ({
   user: state.user,
   selectedFood: state.selectedFood,
+  status: state.status,
 });
 
 const mapDispatchToProps = dispatch => ({
