@@ -73,7 +73,7 @@ const FoodList = ({
     const day = date.toLocaleDateString('en-US', { weekday: 'long' });
     if (day !== dayChosen) return null;
     return (
-      <Food key={meal.id + meal.name} foodsList={foods} meal={meal} removeFood={removeFood} />
+      <Food key={meal.id + meal.name} meal={meal} />
     );
   });
   const caloriesByDay = dayChosen => {
