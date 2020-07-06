@@ -7,6 +7,7 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
+import NavBar from './components/presentational/navbar';
 import RegistrationPage from './components/functional/registrationPage';
 import LoginPage from './components/functional/loginPage';
 import AddFoodPage from './components/functional/addFood';
@@ -28,35 +29,6 @@ const App = ({
   useEffect(() => {
     userLoggedIn();
   }, [userLoggedIn]);
-
-  const nav = (
-    <nav>
-      <div className="horizontal-list">
-        <Link to={{ pathname: '/addFood' }}>
-          <div>
-            <i className="fas fa-utensils" />
-            <span>Add Calories</span>
-          </div>
-        </Link>
-        <Link to={{ pathname: '/foods' }}>
-          <div>
-            <i className="fas fa-chart-line" />
-            <span>Track.it</span>
-          </div>
-        </Link>
-        <Link to={{ pathname: '/progress' }}>
-          <div>
-            <i className="fas fa-chart-pie" />
-            <span>Progress</span>
-          </div>
-        </Link>
-        <Link to={{ pathname: '/more' }}>
-          <i className="fas fa-ellipsis-h" />
-          <span>More</span>
-        </Link>
-      </div>
-    </nav>
-  );
 
   const { isOpen } = modal;
   const showModal = isOpen
@@ -89,7 +61,7 @@ const App = ({
         </Switch>
         {showModal}
       </main>
-      <footer>{nav}</footer>
+      <footer><NavBar /></footer>
     </div>
   );
   /* eslint-enable react/jsx-props-no-spreading */
