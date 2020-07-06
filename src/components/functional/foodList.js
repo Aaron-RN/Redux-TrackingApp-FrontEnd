@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loading from '../presentational/loading';
 import Food from '../presentational/food';
+import FoodByDay from '../presentational/foodByDay';
 import { fetchFoods, removeFood } from '../../redux/actions/index';
 import getSelectedWeek from '../misc/getSelectedWeek';
 import calculateCalories from '../misc/calorieCalculator';
@@ -100,10 +102,7 @@ const FoodList = ({
   const { isLoading } = status;
   const renderMain = isLoading
     ? (
-      <div className="text-center">
-        <div className="loader center" />
-        <h1 className="text-white">Loading...</h1>
-      </div>
+      <Loading />
     )
     : (
       <div className="max-height-hidden">
@@ -117,104 +116,13 @@ const FoodList = ({
           </button>
         </header>
         <div ref={mealsContainer} className="foodSection p-t p-b max-height-auto">
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Sunday', e)}>
-                <h2>Sunday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Sunday')}</span>
-              </div>
-            </div>
-            {showDay('Sunday') ? mealByDay('Sunday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Saturday', e)}>
-                <h2>Saturday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Saturday')}</span>
-              </div>
-            </div>
-            {showDay('Saturday') ? mealByDay('Saturday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Friday', e)}>
-                <h2>Friday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Friday')}</span>
-              </div>
-            </div>
-            {showDay('Friday') ? mealByDay('Friday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Thursday', e)}>
-                <h2>Thursday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Thursday')}</span>
-              </div>
-            </div>
-            {showDay('Thursday') ? mealByDay('Thursday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Wednesday', e)}>
-                <h2>Wednesday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Wednesday')}</span>
-              </div>
-            </div>
-            {showDay('Wednesday') ? mealByDay('Wednesday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Tuesday', e)}>
-                <h2>Tuesday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Tuesday')}</span>
-              </div>
-            </div>
-            {showDay('Tuesday') ? mealByDay('Tuesday') : null}
-          </div>
-          <div>
-            <div>
-              <button className="showDayBtn" data-daydisplayed="+" type="button" onClick={e => toggleDay('Monday', e)}>
-                <h2>Monday</h2>
-                <i className="plus far fa-plus-square" />
-                <i className="minus far fa-minus-square" />
-              </button>
-              <div className="calories">
-                <span>Total Calories: </span>
-                <span>{caloriesByDay('Monday')}</span>
-              </div>
-            </div>
-            {showDay('Monday') ? mealByDay('Monday') : null}
-          </div>
+          <FoodByDay day="Sunday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Saturday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Friday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Thursday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Wednesday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Tuesday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
+          <FoodByDay day="Monday" toggleDay={toggleDay} caloriesByDay={caloriesByDay} showDay={showDay} mealByDay={mealByDay} />
         </div>
       </div>
     );

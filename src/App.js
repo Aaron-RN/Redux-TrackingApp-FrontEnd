@@ -30,10 +30,6 @@ const App = ({
   }, [userLoggedIn]);
 
   const { isOpen } = modal;
-  const showModal = isOpen
-    ? (
-      <Modal />
-    ) : null;
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <div className="App">
@@ -58,7 +54,7 @@ const App = ({
           <Route exact path="/more" render={() => <MorePage userLogout={userLogout} redirectTo={redirectTo} />} />
           <Route exact path="/" render={() => <LoginPage redirectTo={redirectTo} />} />
         </Switch>
-        {showModal}
+        {isOpen && <Modal />}
       </main>
       <footer><NavBar /></footer>
     </div>

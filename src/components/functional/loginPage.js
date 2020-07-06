@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Loading from '../presentational/loading';
+import ShowErrors from '../presentational/showErrors';
 import { userLogin } from '../../redux/actions/index';
 
 class LoginForm extends React.Component {
@@ -47,29 +49,16 @@ class LoginForm extends React.Component {
     } = this.state;
     const { status } = this.props;
     const { isLoading, errors, form } = status;
-    const errorDiv = error => (
-      <div key={error}>
-        {error}
-      </div>
-    );
-    const showErrors = form === 'loginForm' ? (
-      <div className="errors">
-        {errors.map(error => errorDiv(error))}
-      </div>
-    ) : null;
 
     const renderMain = isLoading
       ? (
-        <div className="text-center">
-          <div className="loader center" />
-          <h1 className="text-white">Loading...</h1>
-        </div>
+        <Loading />
       )
       : (
         <div className="max-height-hidden">
           <div className="formTitle">
             <h3>Sign In</h3>
-            {showErrors}
+            {form === 'loginForm' && <ShowErrors errors={errors} />}
           </div>
           <div className="p-t p-b max-height-auto">
             <form ref={this.selectForm} onSubmit={this.handleSubmit} className="form">

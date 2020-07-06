@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ShowErrors from '../presentational/showErrors';
 import {
   closeModal, addNote, updateNote, removeFood, removeNote,
 } from '../../redux/actions/index';
@@ -33,7 +34,7 @@ const Modal = ({
         <h4>Add Note</h4>
         <form
           onSubmit={e => {
-            e.preventDefault(); addNote(selectedFood.id, note); closeModal();
+            e.preventDefault(); addNote(selectedFood.id, note);
           }}
           className="noteForm"
         >
@@ -103,16 +104,6 @@ const Modal = ({
     );
   }
   const { isLoading, errors, form } = status;
-  const errorDiv = error => (
-    <div key={error}>
-      {error}
-    </div>
-  );
-  const showErrors = form === 'modalForm' ? (
-    <div className="errors">
-      {errors.map(error => errorDiv(error))}
-    </div>
-  ) : null;
 
   const renderMain = isLoading
     ? (
@@ -124,7 +115,7 @@ const Modal = ({
     : (
       <div className="modal">
         <div className="modalContent">
-          {showErrors}
+          {form === 'modalForm' && <ShowErrors errors={errors} />}
           {modalDisplay}
         </div>
       </div>
