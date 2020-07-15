@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  font-family:
+    'HelveticaNeue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: calc(16px);
+  background-color: #323741;
+  color: #616772;
+  font-style: normal;
+}
+
+code {
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Courier New',
+    monospace;
+}
